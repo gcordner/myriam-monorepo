@@ -1,0 +1,53 @@
+# Ignore everything WordPress core
+../wp-admin/
+../wp-includes/
+../index.php
+../license.txt
+../readme.html
+../wp-activate.php
+../wp-blog-header.php
+../wp-comments-post.php
+../wp-config.php
+../wp-config-sample.php
+../wp-cron.php
+../wp-links-opml.php
+../wp-load.php
+../wp-login.php
+../wp-mail.php
+../wp-settings.php
+../wp-signup.php
+../wp-trackback.php
+../xmlrpc.php
+
+# Ignore everything in wp-content/plugins except my custom ones
+plugins/*
+!plugins/your-custom-plugin-1/
+!plugins/your-custom-plugin-2/
+
+# Ignore everything in wp-content/themes except my child theme
+themes/*
+!themes/myriam/
+
+
+# Ignore any uploads or cache
+uploads/
+*.log
+*.tmp
+*.sql
+.cache/
+node_modules/
+dist/
+vendor/
+.env
+
+.DS_Store
+
+# More stuff
+README.md
+ai1wm-backups/
+boost-cache/
+index.php
+jetpack-waf/
+mu-plugins/
+plugins-06292023/
+themes-old/
