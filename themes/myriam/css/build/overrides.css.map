@@ -1,0 +1,1 @@
+{"version":3,"file":"css/build/overrides.css","mappings":"AAAA,MACI,kCAAmC,CACnC,yBAA0B","sources":["webpack://wordpress-theme-build/./css/src/overrides.scss"],"sourcesContent":[":root {\n    --theme-content-vertical-spacing: 0;\n    --theme-content-spacing: 0;\n}"],"names":[],"sourceRoot":""}

@@ -14,7 +14,8 @@ const wideWidth = layout.wideSize || "1200px";
 const scssVars = `$content-width: ${contentWidth};
 $wide-width: ${wideWidth};
 `;
-// ADD THESE 4 LINES HERE:
+
+// Ensure the SCSS vars file exists and write it
 const scssDir = path.dirname("./css/src/base/_theme-values.scss");
 if (!fs.existsSync(scssDir)) {
   fs.mkdirSync(scssDir, { recursive: true });
@@ -24,14 +25,16 @@ fs.writeFileSync("./css/src/base/_theme-values.scss", scssVars);
 module.exports = {
   entry: {
     main: ["./js/src/index.js", "./css/src/main.scss"],
+    overrides: "./css/src/overrides.scss",
   },
   output: {
     path: path.resolve(__dirname),
-    filename: "js/build/main.min.[fullhash].js",
-    publicPath: "/",
+    filename: "js/build/[name].min.[fullhash].js", // <-- use [name]
+    publicPath: "/wp-content/themes/myriam/",
   },
   module: {
     rules: [
+      // JS/JSX
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -42,6 +45,7 @@ module.exports = {
           },
         },
       },
+      // CSS/SCSS
       {
         test: /\.(s[ac]ss|css)$/i,
         use: [
@@ -49,12 +53,15 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              // url: false removed - now CSS can reference assets
+              // keep default url handling so assets referenced in CSS work
+              sourceMap: true,
             },
           },
           {
             loader: "sass-loader",
             options: {
+              implementation: require("sass"), // fixes legacy JS API deprecation
+              sourceMap: true,
               sassOptions: {
                 includePaths: [path.resolve(__dirname, "css/src")],
               },
@@ -62,16 +69,17 @@ module.exports = {
           },
         ],
       },
-      // ADD THESE TWO NEW RULES:
+      // Fonts
       {
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        test: /\.(woff2?|eot|ttf|otf)$/i,
         type: "asset/resource",
         generator: {
           filename: "font/[name][ext]",
         },
       },
+      // Images (used from CSS)
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpe?g|gif|svg)$/i,
         type: "asset/resource",
         generator: {
           filename: "css/build/img/[name][ext]",
@@ -84,7 +92,10 @@ module.exports = {
       cleanOnceBeforeBuildPatterns: ["js/build/*", "css/build/*"],
     }),
     new MiniCssExtractPlugin({
-      filename: "css/build/theme.min.[fullhash].css",
+      filename: (pathData) =>
+        pathData.chunk.name === "overrides"
+          ? "css/build/overrides.css" // stable name for your late overrides
+          : "css/build/theme.min.[fullhash].css", // hashed main bundle
     }),
   ],
   optimization: {
@@ -97,6 +108,12 @@ module.exports = {
     "@wordpress/block-editor": ["wp", "blockEditor"],
     "@wordpress/components": ["wp", "components"],
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".json"],
+  },
   devtool: "source-map",
-  mode: "development",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
+  stats: {
+    errorDetails: true,
+  },
 };

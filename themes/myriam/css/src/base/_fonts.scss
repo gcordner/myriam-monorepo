@@ -1,0 +1,20 @@
+// _fonts.scss - Font loading declarations
+
+// Self-hosted Bebas Neue
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('./fonts/bebas-neue-v2-latin-ext_latin-regular.eot');
+    /* IE9 Compat Modes */
+    src: local(''),
+        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff') format('woff'),
+        /* Pretty Modern Browsers */
+        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.ttf') format('truetype');
+    /* Safari, Android, iOS */
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
