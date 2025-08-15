@@ -1,20 +1,55 @@
-// _fonts.scss - Font loading declarations
+/* ===========================
+   FONT FACE DECLARATIONS (SRC)
+   Source files: css/src/fonts/*
+   Build copies them to: /font/*
+   =========================== */
 
-// Self-hosted Bebas Neue
+/* Montserrat Regular (400) */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./fonts/montserrat-v21-latin-regular.woff2') format('woff2'),
+        url('./fonts/montserrat-v21-latin-regular.woff') format('woff');
+}
+
+/* Montserrat Italic (400) */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./fonts/montserrat-v21-latin-italic.woff2') format('woff2'),
+        url('./fonts/montserrat-v21-latin-italic.woff') format('woff');
+}
+
+/* Montserrat Bold (700) */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('./fonts/montserrat-v21-latin-700.woff2') format('woff2'),
+        url('./fonts/montserrat-v21-latin-700.woff') format('woff');
+}
+
+/* Montserrat Bold Italic (700) */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: 700;
+    font-display: swap;
+    src: url('./fonts/montserrat-v21-latin-700italic.woff2') format('woff2'),
+        url('./fonts/montserrat-v21-latin-700italic.woff') format('woff');
+}
+
+/* Bebas Neue (headings) */
 @font-face {
     font-family: 'Bebas Neue';
-    src: url('./fonts/bebas-neue-v2-latin-ext_latin-regular.eot');
-    /* IE9 Compat Modes */
-    src: local(''),
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.eot?#iefix') format('embedded-opentype'),
-        /* IE6-IE8 */
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff2') format('woff2'),
-        /* Super Modern Browsers */
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff') format('woff'),
-        /* Pretty Modern Browsers */
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.ttf') format('truetype');
-    /* Safari, Android, iOS */
-    font-weight: normal;
     font-style: normal;
+    font-weight: 400;
     font-display: swap;
+    src: url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff2') format('woff2'),
+        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff') format('woff');
 }

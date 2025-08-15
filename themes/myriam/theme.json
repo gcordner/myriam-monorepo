@@ -1,80 +1,11 @@
 {
-  "version": 2,
+  "version": 3,
   "$schema": "https://schemas.wp.org/trunk/theme.json",
   "settings": {
     "appearanceTools": true,
     "color": {
-      "palette": [
-        {
-          "slug": "base",
-          "color": "#261404",
-          "name": "Black"
-        },
-        {
-          "slug": "contrast",
-          "color": "#F2EFEB",
-          "name": "White"
-        },
-        {
-          "slug": "primary",
-          "color": "#B9537A",
-          "name": "Rosewood"
-        },
-        {
-          "slug": "secondary",
-          "color": "#B9537A",
-          "name": "Rosewood"
-        },
-        {
-          "slug": "goldenrod",
-          "color": "#F2B705",
-          "name": "Goldenrod"
-        },
-        {
-          "slug": "tangerine",
-          "color": "#F28705",
-          "name": "Tangerine"
-        },
-        {
-          "slug": "flame",
-          "color": "#F25C05",
-          "name": "Flame"
-        },
-        {
-          "slug": "burnt-sienna",
-          "color": "#bc4704",
-          "name": "Burnt Sienna"
-        },
-        {
-          "slug": "transparent",
-          "color": "transparent",
-          "name": "Transparent"
-        }
-      ],
-      "gradients": [
-        {
-          "slug": "primary-white",
-          "gradient": "linear-gradient(#0073aa 49.9%,#fff 50%)",
-          "name": "Primary color to white"
-        },
-        {
-          "slug": "white-primary",
-          "gradient": "linear-gradient(#fff 49.9%,#0073aa 50%)",
-          "name": "Horizontal white to Primary color"
-        }
-      ],
-      "duotone": [
-        {
-          "colors": ["#00a0d2", "#0073aa"],
-          "slug": "secondary-primary",
-          "name": "Secondary and primary"
-        },
-        {
-          "colors": ["#0073aa", "#f0f0f0"],
-          "slug": "primary-contrast",
-          "name": "Primary and Contrast"
-        }
-      ]
+      "defaultPalette": false,
+      "defaultGradients": false
     },
     "layout": {
       "contentSize": "700px",
@@ -88,28 +19,62 @@
       "fluid": true,
       "fontFamilies": [
         {
-          "name": "Montserrat",
-          "slug": "montserrat",
+          "fontFace": [
+            {
+              "fontDisplay": "swap",
+              "fontFamily": "Montserrat",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./font/montserrat-v21-latin-regular.woff2"]
+            }
+          ],
           "fontFamily": "Montserrat, sans-serif",
-          "fontPath": "../fonts/montserrat-v21-latin-regular.woff2"
+          "name": "Montserrat",
+          "slug": "montserrat"
         },
         {
-          "name": "Bebas Neue",
-          "slug": "bebas-neue",
+          "fontFace": [
+            {
+              "fontDisplay": "swap",
+              "fontFamily": "Bebas Neue",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./font/bebas-neue-v2-latin-ext_latin-regular.woff2"]
+            }
+          ],
           "fontFamily": "'Bebas Neue', sans-serif",
-          "fontPath": "../fonts/bebas-neue-v2-latin-ext_latin-regular.woff2"
+          "name": "Bebas Neue",
+          "slug": "bebas-neue"
         },
         {
-          "name": "Big Shoulders Display",
-          "slug": "big-shoulders-display",
+          "fontFace": [
+            {
+              "fontDisplay": "swap",
+              "fontFamily": "Big Shoulders Display",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": [
+                "file:./font/big-shoulders-display-v12-latin-regular.woff2"
+              ]
+            }
+          ],
           "fontFamily": "'Big Shoulders Display', sans-serif",
-          "fontPath": "../fonts/big-shoulders-display-v12-latin-regular.woff2"
+          "name": "Big Shoulders Display",
+          "slug": "big-shoulders-display"
         },
         {
-          "name": "Source Code Pro",
-          "slug": "source-code-pro",
+          "fontFace": [
+            {
+              "fontDisplay": "swap",
+              "fontFamily": "Source Code Pro",
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "src": ["file:./font/source-code-pro-v18-latin-regular.woff2"]
+            }
+          ],
           "fontFamily": "'Source Code Pro', monospace",
-          "fontPath": "../fonts/source-code-pro-v18-latin-regular.woff2"
+          "name": "Source Code Pro",
+          "slug": "source-code-pro"
         }
       ],
       "fontSizes": [

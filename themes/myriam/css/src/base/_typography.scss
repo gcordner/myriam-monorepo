@@ -1,20 +1,76 @@
-// _typography.scss - Typography styles and scales
+/* ===========================
+   TYPOGRAPHY
+   =========================== */
 
-// Apply Bebas Neue to all main headings
+/* Base text across the whole theme (Blocksy + blocks) */
+html,
+body {
+    font-family: var(--wp--preset--font-family--montserrat);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings anywhere (theme chrome + blocks) */
 h1,
 h2,
 h3,
 h4,
-.wp-block-heading {
-    font-family: 'Bebas Neue', cursive;
-    font-weight: normal;
+h5,
+h6,
+.wp-block-heading,
+.entry-title,
+/* Blocksy post/page titles */
+.archive-title,
+.site-title,
+.site-title a {
+    /* Header branding */
+    font-family: var(--wp--preset--font-family--bebas-neue);
+    font-weight: 400;
     line-height: 1.2;
     margin-bottom: 1rem;
 }
 
-// Responsive heading sizes
+/* Make theme chrome inherit the base font cleanly */
+.ct-header,
+.ct-footer,
+.widget,
+.site-branding,
+.main-navigation,
+.ct-sidebar,
+.ct-container,
+.ct-contact-info,
+.ct-breadcrumbs {
+    font-family: inherit;
+}
+
+/* Menus + buttons + form controls */
+.main-navigation,
+.menu,
+.menu a,
+button,
+.button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+/* Code blocks keep monospace */
+pre,
+code,
+kbd,
+samp {
+    font-family: var(--wp--preset--font-family--source-code-pro);
+}
+
+/* ===========================
+   Responsive Heading Sizes
+   =========================== */
+
 h1,
 .wp-block-heading.has-h1-font-size {
+    font-weight: 400;
     font-size: 4rem;
 
     @media (max-width: 768px) {
