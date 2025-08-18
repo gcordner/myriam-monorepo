@@ -4,16 +4,25 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-// Load layout settings from theme.json
+// Load settings from theme.json
 const themeJson = require("./theme.json");
 const layout = themeJson.settings?.layout || {};
+const colors = themeJson.settings?.color?.palette || [];
+
 const contentWidth = layout.contentSize || "700px";
 const wideWidth = layout.wideSize || "1200px";
 
 // Generate SCSS variables from theme.json
-const scssVars = `$content-width: ${contentWidth};
+let scssVars = `$content-width: ${contentWidth};
 $wide-width: ${wideWidth};
+
+// Colors from theme.json
 `;
+
+colors.forEach((color) => {
+  const varName = color.slug.replace(/-/g, "_"); // Convert kebab-case to snake_case for SCSS
+  scssVars += `$${varName}: ${color.color};\n`;
+});
 
 // Ensure the SCSS vars file exists and write it
 const scssDir = path.dirname("./css/src/base/_theme-values.scss");
