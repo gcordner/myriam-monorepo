@@ -58,9 +58,9 @@
           "name": "Montserrat"
         },
         {
-          "fontFamily": "Arial, serif",
-          "slug": "arial",
-          "name": "Arial"
+          "fontFamily": "\"Bebas Neue\", cursive",
+          "slug": "bebas-neue",
+          "name": "Bebas Neue"
         }
       ],
       "theme": [],
@@ -91,6 +91,33 @@
   "styles": {
     "typography": {
       "fontFamily": "var(--wp--preset--font-family--montserrat)"
+    },
+    "elements": {
+      "h1": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h4": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h5": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      }
     }
   }
 }
