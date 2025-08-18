@@ -74,3 +74,25 @@ add_action(
 		}
 	}
 );
+
+// Remove GeneratePress default fonts and use theme.json fonts.
+function remove_generatepress_default_fonts() {
+    add_filter('wp_theme_json_data_theme', function($theme_json) {
+        $data = $theme_json->get_data();
+        
+        // Read fonts from our theme.json file
+        $theme_json_path = get_stylesheet_directory() . '/theme.json';
+        if (file_exists($theme_json_path)) {
+            $our_theme_json = json_decode(file_get_contents($theme_json_path), true);
+            $our_fonts = $our_theme_json['settings']['typography']['fontFamilies'] ?? [];
+            
+            // Replace GeneratePress fonts with our theme.json fonts
+            if (isset($data['settings']['typography']['fontFamilies']) && !empty($our_fonts)) {
+                $data['settings']['typography']['fontFamilies'] = $our_fonts;
+            }
+        }
+        
+        return new WP_Theme_JSON($data);
+    }, 10);
+}
+add_action('after_setup_theme', 'remove_generatepress_default_fonts', 10);

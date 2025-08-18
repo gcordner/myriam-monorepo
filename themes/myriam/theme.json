@@ -51,6 +51,19 @@
     "useRootPaddingAwareAlignments": true,
     "typography": {
       "customFontSize": true,
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Montserrat\", sans-serif",
+          "slug": "montserrat",
+          "name": "Montserrat"
+        },
+        {
+          "fontFamily": "Arial, serif",
+          "slug": "arial",
+          "name": "Arial"
+        }
+      ],
+      "theme": [],
       "fontSizes": [
         {
           "slug": "small",
@@ -73,6 +86,11 @@
           "name": "Huge"
         }
       ]
+    }
+  },
+  "styles": {
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--montserrat)"
     }
   }
 }
