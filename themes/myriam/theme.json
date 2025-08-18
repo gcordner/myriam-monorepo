@@ -61,6 +61,11 @@
           "fontFamily": "\"Bebas Neue\", cursive",
           "slug": "bebas-neue",
           "name": "Bebas Neue"
+        },
+        {
+          "fontFamily": "\"Big Shoulders\", serif",
+          "slug": "big-shoulders",
+          "name": "Big Shoulders"
         }
       ],
       "theme": [],
