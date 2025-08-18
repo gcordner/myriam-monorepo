@@ -1,6 +1,7 @@
 {
   "version": 3,
   "settings": {
+    "appearanceTools": true,
     "color": {
       "defaultPalette": false,
       "palette": [
@@ -43,6 +44,11 @@
       "custom": true,
       "customGradient": true
     },
+    "layout": {
+      "contentSize": "700px",
+      "wideSize": "1200px"
+    },
+    "useRootPaddingAwareAlignments": true,
     "typography": {
       "customFontSize": true,
       "fontSizes": [
