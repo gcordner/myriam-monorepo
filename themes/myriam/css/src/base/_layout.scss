@@ -2,5 +2,9 @@
 @use 'theme-values';
 
 p {
-    margin-bottom: 1rem !important;
+    margin-bottom: 1.5rem;
+}
+
+.medium-width {
+    max-width: theme-values.$content-width;
 }
