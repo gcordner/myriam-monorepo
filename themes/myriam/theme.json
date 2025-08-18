@@ -1,0 +1,72 @@
+{
+  "version": 3,
+  "settings": {
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "poppy-yellow",
+          "color": "#F2C60A",
+          "name": "Poppy Yellow"
+        },
+        {
+          "slug": "poppy-state-pink",
+          "color": "#ed008e",
+          "name": "Poppy State Pink"
+        },
+        {
+          "slug": "dark-teal",
+          "color": "#0b2225",
+          "name": "Dark Teal"
+        },
+        {
+          "slug": "black",
+          "color": "#000000",
+          "name": "Black"
+        },
+        {
+          "slug": "burnt-sienna",
+          "color": "#261404",
+          "name": "Burnt Sienna"
+        },
+        {
+          "slug": "white",
+          "color": "#FAFBFC",
+          "name": "White"
+        },
+        {
+          "slug": "not-quite-white",
+          "color": "#F2F2F2",
+          "name": "Not Quite White"
+        }
+      ],
+      "custom": true,
+      "customGradient": true
+    },
+    "typography": {
+      "customFontSize": true,
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "0.875rem",
+          "name": "Small"
+        },
+        {
+          "slug": "normal",
+          "size": "1rem",
+          "name": "Normal"
+        },
+        {
+          "slug": "large",
+          "size": "1.5rem",
+          "name": "Large"
+        },
+        {
+          "slug": "huge",
+          "size": "2rem",
+          "name": "Huge"
+        }
+      ]
+    }
+  }
+}
