@@ -1,0 +1,92 @@
+@use 'theme-values';
+
+// Make header sticky with burnt sienna background
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--wp--preset--color--burnt-sienna);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+// Add top margin to compensate for sticky header
+// body {
+    //     padding-top: 80px; // Adjust based on your header height
+    // }
+
+// Style the header container
+.inside-header {
+    // padding: 1rem 0;
+    align-items: center;
+}
+
+// Style the site title - Bebas Neue Italic + Poppy Yellow
+.main-title {
+    font-family: var(--wp--preset--font-family--bebas-neue);
+    font-style: italic;
+    font-size: 2rem;
+    margin: 0;
+
+    a {
+        color: var(--wp--preset--color--poppy-yellow);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--wp--preset--color--white);
+        }
+    }
+}
+
+// Style the navigation menu
+.main-navigation {
+    .main-nav ul {
+        display: flex;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li a {
+            color: var(--wp--preset--color--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: var(--wp--preset--color--poppy-yellow);
+            }
+        }
+    }
+}
+
+// Style dropdowns
+.sub-menu {
+    background: white;
+    border: 1px solid var(--wp--preset--color--not-quite-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    li a {
+        padding: 0.75rem 1rem;
+
+        &:hover {
+            background: var(--wp--preset--color--not-quite-white);
+        }
+    }
+}
+
+// Mobile menu button
+.menu-toggle {
+    background: var(--wp--preset--color--poppy-yellow);
+    border: none;
+    padding: 0.5rem;
+    border-radius: 4px;
+
+    &:hover {
+        background: var(--wp--preset--color--poppy-state-pink);
+    }
+}
