@@ -1,0 +1,11 @@
+.hide {
+    display: none;
+}
+
+.mobi-hide {
+    display: none;
+
+    @media (min-width: 768px) {
+        display: block;
+    }
+}
