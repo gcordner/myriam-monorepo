@@ -104,3 +104,30 @@ function remove_generatepress_default_fonts() {
 	);
 }
 add_action( 'after_setup_theme', 'remove_generatepress_default_fonts', 10 );
+
+/**
+ * Remove page titles selectively for better design control.
+ *
+ * Removes automatic GeneratePress page titles on homepage and when
+ * Post Title blocks are detected to prevent duplicate titles.
+ *
+ * @return void
+ */
+function customize_page_titles() {
+	// Remove title on home page only.
+	if ( is_front_page() ) {
+		remove_action( 'generate_before_content', 'generate_page_header' );
+		add_filter( 'generate_show_title', '__return_false' );
+	}
+
+	// Optional: Remove title on specific pages where you want to use the block instead.
+	global $post;
+	if ( is_page() && $post ) {
+		// Check if page content contains the Page Title block.
+		if ( has_block( 'core/post-title', $post->post_content ) ) {
+			remove_action( 'generate_before_content', 'generate_page_header' );
+			add_filter( 'generate_show_title', '__return_false' );
+		}
+	}
+}
+add_action( 'wp', 'customize_page_titles' );
