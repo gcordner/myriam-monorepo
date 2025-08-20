@@ -50,7 +50,8 @@
     },
     "useRootPaddingAwareAlignments": true,
     "typography": {
-      "customFontSize": true,
+      "customFontSize": false,
+      "defaultFontSizes": false,
       "fontFamilies": [
         {
           "fontFamily": "\"Montserrat\", sans-serif",
@@ -76,18 +77,29 @@
           "name": "Small"
         },
         {
-          "slug": "normal",
+          "slug": "my-medium",
           "size": "1rem",
-          "name": "Normal"
+          "name": "Medium"
         },
+
         {
           "slug": "large",
-          "size": "1.5rem",
+          "size": "1.25rem",
           "name": "Large"
         },
         {
-          "slug": "huge",
+          "slug": "extra-large",
           "size": "2rem",
+          "name": "Extra Large"
+        },
+        {
+          "slug": "triple-xl",
+          "size": "3rem",
+          "name": "Triple XL"
+        },
+        {
+          "slug": "Huge",
+          "size": "4rem",
           "name": "Huge"
         }
       ]
