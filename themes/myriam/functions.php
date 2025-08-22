@@ -1,22 +1,9 @@
 <?php
 /**
- * Myriam Theme Functions
+ * Myriam theme functions.
  *
  * @package Myriam
  */
-
-if ( ! defined( 'WP_DEBUG' ) ) {
-	die( 'Direct access forbidden.' );
-}
-
-// Enable block styles (required for theme.json support).
-add_action(
-	'after_setup_theme',
-	function () {
-		add_theme_support( 'wp-block-styles' );
-		add_theme_support( 'editor-styles' );
-	}
-);
 
 // Enqueue frontend assets.
 add_action(
@@ -88,46 +75,120 @@ add_action(
 	}
 );
 
-// Add this RIGHT AFTER the glob() calls to see what's happening.
-// add_action('wp_head', function() {
-//     $theme_dir = get_stylesheet_directory();
-//     $css_dir   = $theme_dir . '/css/build/';
-//     $css_files = glob($css_dir . 'theme.min.*.css');
-    
-    // echo "<!-- DEBUG: CSS dir: $css_dir -->\n";
-    // echo "<!-- DEBUG: CSS files found: " . print_r($css_files, true) . " -->\n";
-    // echo "<!-- DEBUG: Theme dir: $theme_dir -->\n";
-    // echo "<!-- DEBUG: Theme URI: " . get_stylesheet_directory_uri() . " -->\n";
-// });
+/**
+ * Remove GeneratePress default fonts and use theme.json fonts
+ *
+ * @return void
+ */
+function remove_generatepress_default_fonts() {
+	add_filter(
+		'wp_theme_json_data_theme',
+		function ( $theme_json ) {
+			$data = $theme_json->get_data();
 
-add_filter(
-	'blocksy:archive:render-card-layers',
-	function ( $layers, $prefix, $featured_image_args ) {
-		return array(
-			// Only include the parts you want, in your preferred order.
-			'featured_image' => $layers['featured_image'],
-			'title'          => $layers['title'],
-			'excerpt'        => $layers['excerpt'],
-		);
-	},
-	10,
-	3
-);
+			// Read fonts from our theme.json file.
+			$theme_json_path = get_stylesheet_directory() . '/theme.json';
+			if ( file_exists( $theme_json_path ) ) {
+				$our_theme_json = json_decode( file_get_contents( $theme_json_path ), true );
+				$our_fonts      = $our_theme_json['settings']['typography']['fontFamilies'] ?? array();
+
+				// Replace GeneratePress fonts with our theme.json fonts.
+				if ( isset( $data['settings']['typography']['fontFamilies'] ) && ! empty( $our_fonts ) ) {
+					$data['settings']['typography']['fontFamilies'] = $our_fonts;
+				}
+			}
+
+			return new WP_Theme_JSON( $data );
+		},
+		10
+	);
+}
+add_action( 'after_setup_theme', 'remove_generatepress_default_fonts', 10 );
 
 /**
- * Print overrides.css inline at the very end of <head>, after Blocksy's inline CSS.
+ * Remove page titles selectively for better design control.
+ *
+ * Removes automatic GeneratePress page titles on homepage and when
+ * Post Title blocks are detected to prevent duplicate titles.
+ *
+ * @return void
  */
-// add_action('wp_head', function () {
-// 	if ( is_admin() ) return; // front-end only
+function customize_page_titles() {
+	// Remove title on home page only.
+	if ( is_front_page() ) {
+		remove_action( 'generate_before_content', 'generate_page_header' );
+		add_filter( 'generate_show_title', '__return_false' );
+	}
 
-// 	$path = get_stylesheet_directory() . '/css/build/overrides.css';
-// 	if ( ! file_exists($path) ) return;
+	// Optional: Remove title on specific pages where you want to use the block instead.
+	global $post;
+	if ( is_page() && $post ) {
+		// Check if page content contains the Page Title block.
+		if ( has_block( 'core/post-title', $post->post_content ) ) {
+			remove_action( 'generate_before_content', 'generate_page_header' );
+			add_filter( 'generate_show_title', '__return_false' );
+		}
+	}
+}
+add_action( 'wp', 'customize_page_titles' );
 
-// 	$css = trim(file_get_contents($path));
-// 	if ( $css === '' ) return;
+/**
+ * Remove featured images from pages.
+ *
+ * @return void
+ */
+function remove_featured_image_from_pages() {
+    if (is_page()) {
+        // Remove GeneratePress featured image action.
+        remove_action('generate_before_content', 'generate_featured_page_header_inside_single', 10);
+        remove_action('generate_after_header', 'generate_featured_page_header', 10);
+        
+        // Remove any other GeneratePress image hooks.
+        add_filter('generate_show_featured_image', '__return_false');
+    }
+}
+add_action('wp', 'remove_featured_image_from_pages');
 
-// 	// Force-win with !important if you want absolute precedence on vars/rules
-// 	echo "\n<style id='myriam-overrides-inline'>\n{$css}\n</style>\n";
-// }, 99999); // very late so it prints after ct-main-styles-inline-css
+/**
+* Clean archive titles by removing WordPress default prefixes.
+*
+* Removes "Category:", "Tag:", "Author:", etc. prefixes from archive
+* page titles and returns clean, plain text for theme styling.
+*
+* @param string $title The original archive title with prefix.
+* @return string Clean title without prefix or HTML.
+*/
+function fm_clean_archive_title( $title ) {
+   if ( is_category() || is_tag() || is_tax() ) {
+       $title = single_term_title( '', false );
+   } elseif ( is_post_type_archive() ) {
+       $title = post_type_archive_title( '', false );
+   } elseif ( is_author() ) {
+       $author = get_queried_object();
+       $title  = $author && isset( $author->display_name ) ? $author->display_name : '';
+   } elseif ( is_year() ) {
+       $title = get_the_date( _x( 'Y', 'yearly archives date format' ) );
+   } elseif ( is_month() ) {
+       $title = get_the_date( _x( 'F Y', 'monthly archives date format' ) );
+   } elseif ( is_day() ) {
+       $title = get_the_date( _x( 'F j, Y', 'daily archives date format' ) );
+   }
+   return $title; // return plain text; let templates handle markup/escaping
+}
+add_filter( 'get_the_archive_title', 'fm_clean_archive_title' );
 
 
+/**
+* Add custom CSS classes to body element on post type archive pages.
+*
+* @param array $classes Existing body classes.
+* @return array Modified body classes array.
+*/
+function add_post_type_archive_body_classes($classes) {
+   if (is_post_type_archive('writing')) {
+       $classes[] = 'archive-writing';
+       $classes[] = 'bg-brand-secondary'; // Semantic, won't break.
+   }
+   return $classes;
+}
+add_filter('body_class', 'add_post_type_archive_body_classes');

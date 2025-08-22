@@ -1,0 +1,114 @@
+@use 'theme-values';
+
+// Page structure overrides
+#page {
+    .page-header {
+        padding: 80px 0 0;
+    }
+
+    .inside-article {
+        padding: 0;
+    }
+}
+
+// GeneratePress layout fixes
+.separate-containers .site-main,
+.separate-containers .site-main .featured-image {
+    margin: 0;
+}
+
+// Writing archive grid
+.writing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+// Combined writing item styles
+.writing-item {
+    .featured-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .magazine {
+        margin-bottom: 0.5rem;
+
+        p {
+            font-family: "Big Shoulders Display", Arial, Helvetica, sans-serif;
+            color: theme-values.$burnt_sienna;
+            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        a {
+            color: theme-values.$dark_teal;
+            text-decoration: none;
+            font-weight: 600;
+
+            &:hover {
+                color: theme-values.$poppy_state_pink;
+                text-decoration: underline;
+            }
+        }
+
+        .date {
+            color: theme-values.$dark_teal;
+            font-family: "Montserrat", Arial, Helvetica, sans-serif;
+            font-weight: 400;
+            font-size: 0.875rem;
+        }
+    }
+
+    .entry-title a {
+        color: theme-values.$dark_teal; // Use consistent variable
+        text-decoration: none;
+
+        &:hover {
+            color: theme-values.$poppy_state_pink;
+        }
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+        margin: 0.5rem 0 0;
+        font-style: italic;
+        font-weight: 400;
+    }
+
+    .tags a {
+        color: theme-values.$not_quite_white;
+        text-transform: lowercase;
+        text-decoration: none;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        background-color: theme-values.$burnt_sienna;
+        padding: 2px 7px 4px 7px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Content type specific styles
+.type-writing {
+
+    .entry-content:not(:first-child),
+    .entry-summary:not(:first-child),
+    .page-content:not(:first-child) {
+        margin-top: 0;
+
+        p {
+            margin-bottom: 1.5em;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+    }
+}

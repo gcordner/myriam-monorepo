@@ -4,16 +4,25 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-// Load layout settings from theme.json
+// Load settings from theme.json
 const themeJson = require("./theme.json");
 const layout = themeJson.settings?.layout || {};
+const colors = themeJson.settings?.color?.palette || [];
+
 const contentWidth = layout.contentSize || "700px";
 const wideWidth = layout.wideSize || "1200px";
 
 // Generate SCSS variables from theme.json
-const scssVars = `$content-width: ${contentWidth};
+let scssVars = `$content-width: ${contentWidth};
 $wide-width: ${wideWidth};
+
+// Colors from theme.json
 `;
+
+colors.forEach((color) => {
+  const varName = color.slug.replace(/-/g, "_"); // Convert kebab-case to snake_case for SCSS
+  scssVars += `$${varName}: ${color.color};\n`;
+});
 
 // Ensure the SCSS vars file exists and write it
 const scssDir = path.dirname("./css/src/base/_theme-values.scss");
@@ -25,11 +34,10 @@ fs.writeFileSync("./css/src/base/_theme-values.scss", scssVars);
 module.exports = {
   entry: {
     main: ["./js/src/index.js", "./css/src/main.scss"],
-    overrides: "./css/src/overrides.scss",
   },
   output: {
     path: path.resolve(__dirname),
-    filename: "js/build/[name].min.[fullhash].js", // <-- use [name]
+    filename: "js/build/[name].min.[fullhash].js",
     publicPath: "/wp-content/themes/myriam/",
   },
   module: {
@@ -53,14 +61,13 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              // keep default url handling so assets referenced in CSS work
               sourceMap: true,
             },
           },
           {
             loader: "sass-loader",
             options: {
-              implementation: require("sass"), // fixes legacy JS API deprecation
+              implementation: require("sass"),
               sourceMap: true,
               sassOptions: {
                 includePaths: [path.resolve(__dirname, "css/src")],
@@ -77,7 +84,7 @@ module.exports = {
           filename: "font/[name][ext]",
         },
       },
-      // Images (used from CSS)
+      // Images
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
         type: "asset/resource",
@@ -92,10 +99,7 @@ module.exports = {
       cleanOnceBeforeBuildPatterns: ["js/build/*", "css/build/*"],
     }),
     new MiniCssExtractPlugin({
-      filename: (pathData) =>
-        pathData.chunk.name === "overrides"
-          ? "css/build/overrides.css" // stable name for your late overrides
-          : "css/build/theme.min.[fullhash].css", // hashed main bundle
+      filename: "css/build/theme.min.[fullhash].css",
     }),
   ],
   optimization: {

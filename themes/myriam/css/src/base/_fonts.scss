@@ -1,20 +1,31 @@
-// _fonts.scss - Font loading declarations
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
 
-// Self-hosted Bebas Neue
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/Montserrat/Montserrat-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
+    font-style: italic;
+    font-display: swap;
+}
+
 @font-face {
     font-family: 'Bebas Neue';
-    src: url('./fonts/bebas-neue-v2-latin-ext_latin-regular.eot');
-    /* IE9 Compat Modes */
-    src: local(''),
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.eot?#iefix') format('embedded-opentype'),
-        /* IE6-IE8 */
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff2') format('woff2'),
-        /* Super Modern Browsers */
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.woff') format('woff'),
-        /* Pretty Modern Browsers */
-        url('./fonts/bebas-neue-v2-latin-ext_latin-regular.ttf') format('truetype');
-    /* Safari, Android, iOS */
-    font-weight: normal;
+    src: url('./fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype-variations');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Big Shoulders Display';
+    src: url('./fonts/Big_Shoulders/BigShoulders-VariableFont_opsz,wght.ttf') format('truetype-variations');
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }

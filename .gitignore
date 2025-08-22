@@ -46,7 +46,7 @@ vendor/
 README.md
 ai1wm-backups/
 boost-cache/
-index.php
+/index.php
 jetpack-waf/
 mu-plugins/
 plugins-06292023/
