@@ -14,12 +14,14 @@ h4,
     font-weight: normal;
     line-height: 1.2;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 // Responsive heading sizes
 h1,
 .wp-block-heading.has-h1-font-size {
-    font-size: 4rem;
+    font-size: 3.5rem;
+    font-style: italic;
 
     @media (max-width: 768px) {
         font-size: 2.5rem;

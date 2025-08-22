@@ -10,7 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header(); ?>
-
 <div <?php generate_do_attr( 'content' ); ?>>
 	<main <?php generate_do_attr( 'main' ); ?>>
 	<?php

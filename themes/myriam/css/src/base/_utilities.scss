@@ -1,3 +1,6 @@
+@use 'theme-values';
+
+
 .hide {
     display: none;
 }
@@ -33,6 +36,20 @@
         color: var(--theme-palette-color-3) !important;
         text-decoration: none !important;
     }
+}
+
+// Color utilities based on theme.json values
+// Stable utility classes that won't break
+.bg-brand-primary {
+    background-color: theme-values.$burnt-sienna;
+}
+
+.bg-brand-secondary {
+    background-color: theme-values.$poppy-yellow;
+}
+
+.bg-neutral-light {
+    background-color: theme-values.$not-quite-white;
 }
 
 // Tailwind-style spacing utilities
