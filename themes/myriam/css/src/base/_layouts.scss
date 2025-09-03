@@ -1,4 +1,11 @@
 @use 'theme-values';
+@use 'mixins';
+
+
+body {
+    background-color: theme-values.$poppy-yellow;
+
+}
 
 // Page structure overrides
 #page {
@@ -111,4 +118,11 @@
             line-height: 1.6;
         }
     }
+}
+
+
+.medium-width {
+    max-width: theme-values.$content_width;
+    margin: 0 auto;
+    @include mixins.mobile-padding();
 }
