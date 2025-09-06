@@ -192,3 +192,50 @@ function add_post_type_archive_body_classes($classes) {
    return $classes;
 }
 add_filter('body_class', 'add_post_type_archive_body_classes');
+
+/**
+ * Replace GeneratePress footer credits in place (no unhooking needed).
+ */
+add_filter( 'generate_copyright', function ( $original ) {
+	$year = date_i18n( 'Y' );
+	$site = get_bloginfo( 'name' );
+
+	// Edit this to whatever you want:
+	return sprintf(
+		'<span class="copyright">&copy; %s %s</span> &bull; Designed and Built by <a href="https://former-model.com" target="_blank" rel="noopener">Former Model</a>.',
+		esc_html( $year ),
+		esc_html( $site )
+	);
+}, 10 );
+
+
+/**
+ * Include the `writing` CPT in tag archives.
+ */
+add_action( 'pre_get_posts', function ( WP_Query $q ) {
+	if ( is_admin() || ! $q->is_main_query() ) {
+		return;
+	}
+	if ( $q->is_tag() ) {
+		// Only writing posts with that tag:
+		$q->set( 'post_type', [ 'writing' ] );
+
+		// If you ALSO want regular blog posts, use:
+		// $q->set( 'post_type', [ 'post', 'writing' ] );
+	}
+} );
+
+/**
+ * Use archive-writing.php to render tag archives.
+ */
+add_filter( 'template_include', function ( $template ) {
+	if ( is_tag() ) {
+		$alt = locate_template( 'archive-writing.php' );
+		if ( $alt ) {
+			return $alt;
+		}
+	}
+	return $template;
+} );
+
+

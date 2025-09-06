@@ -1,0 +1,27 @@
+@use 'variables';
+// utils/_mixins.scss
+
+// Canonical, RTL-safe version (mobile first)
+@mixin mobile-inline-padding($mobile: var(--wp--preset--spacing--30, 1rem),
+    $breakpoint: 768px,
+    $after: 0) {
+    padding-inline: $mobile;
+
+    @media (min-width: #{$breakpoint}) {
+        padding-inline: $after;
+    }
+}
+
+// Back-compat alias — matches your original name & signature
+// Keeps existing @include mixins.mobile-padding(); working
+@mixin mobile-padding($padding: var(--wp--preset--spacing--30, 1rem),
+    $breakpoint: 768px) {
+    @include mobile-inline-padding($padding, $breakpoint, 0);
+}
+
+// mixin.scss
+@mixin up($min) {
+    @media (min-width: $min) {
+        @content;
+    }
+}

@@ -52,6 +52,10 @@
     background-color: theme-values.$not-quite-white;
 }
 
+.has-text-align-left {
+    text-align: left !important;
+}
+
 // Tailwind-style spacing utilities
 // Uses rem units with 0.25rem (4px) base increment
 

@@ -1,0 +1,19 @@
+@use 'theme-values';
+@use 'mixins';
+@use 'utilities';
+
+.site-footer {
+    background-color: var(--wp--preset--color--dark-brick);
+    color: var(--wp--preset--color--not-quite-white);
+    padding-block: var(--wp--preset--spacing--25, 1.25rem);
+    font-size: 0.875rem;
+    text-align: center;
+
+    a {
+        color: var(--wp--preset--color--white);
+
+        &:hover {
+            color: var(--wp--preset--color--poppy-yellow);
+        }
+    }
+}

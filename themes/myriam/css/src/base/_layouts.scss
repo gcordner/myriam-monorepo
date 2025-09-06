@@ -126,3 +126,12 @@ body {
     margin: 0 auto;
     @include mixins.mobile-padding();
 }
+
+// Mobile-first gutters on the wrapper
+.writing-item {
+    // reuse the same token everywhere
+    --gutter: var(--wp--preset--spacing--20, 0.75rem);
+
+    // 0.75rem L/R on mobile; 0 at ≥768px
+    @include mixins.mobile-padding(var(--gutter), 768px);
+}
