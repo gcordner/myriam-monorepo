@@ -39,7 +39,8 @@ node_modules/
 dist/
 vendor/
 .env
-
+error_log
+litespeed/
 .DS_Store
 
 # More stuff
