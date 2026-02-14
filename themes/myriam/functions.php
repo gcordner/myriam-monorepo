@@ -5,6 +5,23 @@
  * @package Myriam
  */
 
+/**
+ * Get the hashed theme CSS file path. Caches the glob() result
+ * so the filesystem is only scanned once per request.
+ *
+ * @return string|false Full file path, or false if not found.
+ */
+function myriam_get_theme_css_file() {
+	static $file = null;
+
+	if ( null === $file ) {
+		$matches = glob( get_stylesheet_directory() . '/css/build/theme.min.*.css' );
+		$file    = ! empty( $matches ) ? $matches[0] : false;
+	}
+
+	return $file;
+}
+
 // Enqueue frontend assets.
 add_action(
 	'wp_enqueue_scripts',
@@ -12,20 +29,15 @@ add_action(
 		// Enqueue parent theme styles first.
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 
-		$theme_dir = get_stylesheet_directory();
-		$theme_uri = get_stylesheet_directory_uri();
-		$css_dir   = $theme_dir . '/css/build/';
-		// Enqueue CSS.
-		foreach ( glob( $css_dir . 'theme.min.*.css' ) as $css_file ) {
+		$css_file = myriam_get_theme_css_file();
+		if ( $css_file ) {
 			wp_enqueue_style(
 				'myriam-theme-style',
-				$theme_uri . '/css/build/' . basename( $css_file ),
-				array( 'parent-style' ), // Load after parent theme.
+				get_stylesheet_directory_uri() . '/css/build/' . basename( $css_file ),
+				array( 'parent-style' ),
 				filemtime( $css_file )
 			);
-			break; // only the first match.
 		}
-
 	},
 	20
 );
@@ -34,20 +46,15 @@ add_action(
 add_action(
 	'enqueue_block_editor_assets',
 	function () {
-		$theme_dir = get_stylesheet_directory();
-		$theme_uri = get_stylesheet_directory_uri();
-
-		// Enqueue editor CSS.
-		$css_files = glob( $theme_dir . '/css/build/theme.min.*.css' );
-		if ( ! empty( $css_files ) ) {
+		$css_file = myriam_get_theme_css_file();
+		if ( $css_file ) {
 			wp_enqueue_style(
 				'myriam-editor-styles',
-				$theme_uri . '/css/build/' . basename( $css_files[0] ),
+				get_stylesheet_directory_uri() . '/css/build/' . basename( $css_file ),
 				array(),
-				filemtime( $css_files[0] )
+				filemtime( $css_file )
 			);
 		}
-
 	}
 );
 
