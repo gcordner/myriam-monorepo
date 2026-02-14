@@ -42,13 +42,13 @@ while ( have_posts() ) :
 
 		<div class="book-grid">
 			<div class="book-main">
-				<h2 class="screen-reader-text"><?php printf( esc_html__( 'About %s', 'your-textdomain' ), get_the_title() ); ?></h2>
+				<h2 class="screen-reader-text"><?php printf( esc_html__( 'About %s', 'myriam' ), get_the_title() ); ?></h2>
 				<?php
 				the_content();
 
 				// Paginated content support.
 				wp_link_pages( [
-					'before' => '<nav class="post-pages">' . esc_html__( 'Pages:', 'your-textdomain' ),
+					'before' => '<nav class="post-pages">' . esc_html__( 'Pages:', 'myriam' ),
 					'after'  => '</nav>',
 				] );
 				?>
@@ -62,30 +62,30 @@ while ( have_posts() ) :
 				<?php endif; ?>
 
 				<div class="book-meta">
-					<h2 id="book-meta-title" class="book-meta-heading"><?php esc_html_e( 'Book details', 'your-textdomain' ); ?></h2>
+					<h2 id="book-meta-title" class="book-meta-heading"><?php esc_html_e( 'Book details', 'myriam' ); ?></h2>
 
 					<?php if ( $price ) : ?>
-						<p class="book-price"><strong><?php esc_html_e( 'Price:', 'your-textdomain' ); ?></strong>
+						<p class="book-price"><strong><?php esc_html_e( 'Price:', 'myriam' ); ?></strong>
 							<?php echo esc_html( $price ); ?></p>
 					<?php endif; ?>
 
 					<?php if ( $publisher ) : ?>
-						<p><strong><?php esc_html_e( 'Publisher:', 'your-textdomain' ); ?></strong>
+						<p><strong><?php esc_html_e( 'Publisher:', 'myriam' ); ?></strong>
 							<?php echo esc_html( $publisher ); ?></p>
 					<?php endif; ?>
 
 					<?php if ( $available_in ) : ?>
-						<p><strong><?php esc_html_e( 'Available in:', 'your-textdomain' ); ?></strong>
+						<p><strong><?php esc_html_e( 'Available in:', 'myriam' ); ?></strong>
 							<?php echo wp_kses_post( $available_in ); ?></p>
 					<?php endif; ?>
 
 					<?php if ( $isbn ) : ?>
-						<p><strong><?php esc_html_e( 'ISBN:', 'your-textdomain' ); ?></strong>
+						<p><strong><?php esc_html_e( 'ISBN:', 'myriam' ); ?></strong>
 							<?php echo esc_html( $isbn ); ?></p>
 					<?php endif; ?>
 
 					<?php if ( $publication_y ) : ?>
-						<p><strong><?php esc_html_e( 'Published:', 'your-textdomain' ); ?></strong>
+						<p><strong><?php esc_html_e( 'Published:', 'myriam' ); ?></strong>
 							<?php echo esc_html( $publication_y ); ?></p>
 					<?php endif; ?>
 
@@ -106,7 +106,7 @@ while ( have_posts() ) :
 			// echo get_the_term_list( get_the_ID(), 'book_category', '<div class="terms">', ', ', '</div>' );
 
 			edit_post_link(
-				esc_html__( 'Edit', 'your-textdomain' ),
+				esc_html__( 'Edit', 'myriam' ),
 				'<span class="edit-link">',
 				'</span>'
 			);
