@@ -15,8 +15,6 @@ add_action(
 		$theme_dir = get_stylesheet_directory();
 		$theme_uri = get_stylesheet_directory_uri();
 		$css_dir   = $theme_dir . '/css/build/';
-		$js_dir    = $theme_dir . '/js/build/';
-
 		// Enqueue CSS.
 		foreach ( glob( $css_dir . 'theme.min.*.css' ) as $css_file ) {
 			wp_enqueue_style(
@@ -28,17 +26,6 @@ add_action(
 			break; // only the first match.
 		}
 
-		// Enqueue JS.
-		foreach ( glob( $js_dir . 'main.min.*.js' ) as $js_file ) {
-			wp_enqueue_script(
-				'myriam-theme-script',
-				$theme_uri . '/js/build/' . basename( $js_file ),
-				array( 'wp-element', 'wp-hooks' ), // Add WordPress dependencies.
-				filemtime( $js_file ),
-				true
-			);
-			break;
-		}
 	},
 	20
 );
@@ -61,17 +48,6 @@ add_action(
 			);
 		}
 
-		// Enqueue editor JS.
-		$js_files = glob( $theme_dir . '/js/build/main.min.*.js' );
-		if ( ! empty( $js_files ) ) {
-			wp_enqueue_script(
-				'myriam-editor-scripts',
-				$theme_uri . '/js/build/' . basename( $js_files[0] ),
-				array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-components', 'wp-element', 'wp-compose' ),
-				filemtime( $js_files[0] ),
-				true
-			);
-		}
 	}
 );
 
