@@ -47,13 +47,15 @@ get_header(); ?>
 
 				// Determine URL - external or internal.
 				if ( $article_url ) {
-					$url         = $article_url;
-					$target      = ' target="_blank"';
-					$title_rel   = 'rel="noopener noreferrer"';
+					$url       = $article_url;
+					$target    = ' target="_blank"';
+					$ext_rel   = ' rel="noopener noreferrer"';
+					$title_rel = 'rel="noopener noreferrer"';
 				} else {
-					$url         = get_permalink();
-					$target      = '';
-					$title_rel   = 'rel="bookmark"';
+					$url       = get_permalink();
+					$target    = '';
+					$ext_rel   = '';
+					$title_rel = 'rel="bookmark"';
 				}
 				?>
 				
@@ -80,7 +82,7 @@ get_header(); ?>
 								<!-- Featured Image -->
 							<?php if ( has_post_thumbnail() ) : ?>
 									<div class="featured-image">
-										<a href="<?php echo esc_url( $url ); ?>"<?php echo $target; ?> title="<?php echo esc_attr( get_the_title() ); ?>">
+										<a href="<?php echo esc_url( $url ); ?>"<?php echo $target; ?><?php echo $ext_rel; ?> title="<?php echo esc_attr( get_the_title() ); ?>">
 										<?php the_post_thumbnail( 'large' ); ?>
 										</a>
 									</div>
