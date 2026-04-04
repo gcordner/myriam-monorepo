@@ -46,7 +46,8 @@ get_header(); ?>
 				$pub_date    = get_the_date();
 
 				// Determine URL - external or internal.
-				if ( $article_url ) {
+				$is_external = (bool) $article_url;
+				if ( $is_external ) {
 					$url      = $article_url;
 					$link_rel = 'noopener noreferrer';
 				} else {
@@ -63,8 +64,8 @@ get_header(); ?>
 								<div class="magazine">
 								<?php if ( $magazine ) : ?>
 										<p>
-											<?php if ( $article_url ) : ?>
-												<a href="<?php echo esc_url( $article_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $magazine ); ?></a>
+											<?php if ( $is_external ) : ?>
+												<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $magazine ); ?></a>
 											<?php else : ?>
 												<?php echo esc_html( $magazine ); ?>
 											<?php endif; ?>
@@ -78,7 +79,11 @@ get_header(); ?>
 								<!-- Featured Image -->
 							<?php if ( has_post_thumbnail() ) : ?>
 									<div class="featured-image">
-										<a href="<?php echo esc_url( $url ); ?>"<?php if ( $article_url ) : ?> target="_blank"<?php endif; ?> rel="<?php echo esc_attr( $link_rel ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>">
+										<a href="<?php echo esc_url( $url ); ?>"
+															<?php
+															if ( $is_external ) :
+																?>
+											target="_blank"<?php endif; ?> rel="<?php echo esc_attr( $link_rel ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>">
 										<?php the_post_thumbnail( 'large' ); ?>
 										</a>
 									</div>
@@ -86,7 +91,11 @@ get_header(); ?>
 							
 								<!-- Title -->
 								<h2 class="entry-title">
-									<a href="<?php echo esc_url( $url ); ?>"<?php if ( $article_url ) : ?> target="_blank"<?php endif; ?> rel="<?php echo esc_attr( $link_rel ); ?>">
+									<a href="<?php echo esc_url( $url ); ?>"
+														<?php
+														if ( $is_external ) :
+															?>
+										target="_blank"<?php endif; ?> rel="<?php echo esc_attr( $link_rel ); ?>">
 									<?php echo esc_html( get_the_title() ); ?>
 									</a>
 								</h2>
