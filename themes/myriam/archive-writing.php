@@ -47,11 +47,13 @@ get_header(); ?>
 
 				// Determine URL - external or internal.
 				if ( $article_url ) {
-					$url    = $article_url;
-					$target = ' target="_blank"';
+					$url         = $article_url;
+					$target      = ' target="_blank"';
+					$title_rel   = 'rel="noopener noreferrer"';
 				} else {
-					$url    = get_permalink();
-					$target = '';
+					$url         = get_permalink();
+					$target      = '';
+					$title_rel   = 'rel="bookmark"';
 				}
 				?>
 				
@@ -63,9 +65,11 @@ get_header(); ?>
 								<div class="magazine">
 								<?php if ( $magazine ) : ?>
 										<p>
-											<a href="<?php echo esc_url( $article_url ); ?>" target="_blank">
-											<?php echo esc_html( $magazine ); ?>
-											</a>
+											<?php if ( $article_url ) : ?>
+												<a href="<?php echo esc_url( $article_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $magazine ); ?></a>
+											<?php else : ?>
+												<?php echo esc_html( $magazine ); ?>
+											<?php endif; ?>
 											<span class="date"> | <?php echo esc_html( $pub_date ); ?></span>
 										</p>
 								<?php else : ?>
@@ -84,7 +88,7 @@ get_header(); ?>
 							
 								<!-- Title -->
 								<h2 class="entry-title">
-									<a href="<?php echo esc_url( $url ); ?>"<?php echo $target; ?> rel="bookmark">
+									<a href="<?php echo esc_url( $url ); ?>"<?php echo $target; ?> <?php echo $title_rel; ?>>
 									<?php the_title(); ?>
 									</a>
 								</h2>
