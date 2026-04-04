@@ -47,15 +47,11 @@ get_header(); ?>
 
 				// Determine URL - external or internal.
 				if ( $article_url ) {
-					$url       = $article_url;
-					$target    = ' target="_blank"';
-					$ext_rel   = ' rel="noopener noreferrer"';
-					$title_rel = 'rel="noopener noreferrer"';
+					$url        = $article_url;
+					$link_attrs = 'target="_blank" rel="noopener noreferrer"';
 				} else {
-					$url       = get_permalink();
-					$target    = '';
-					$ext_rel   = '';
-					$title_rel = 'rel="bookmark"';
+					$url        = get_permalink();
+					$link_attrs = 'rel="bookmark"';
 				}
 				?>
 				
@@ -68,7 +64,7 @@ get_header(); ?>
 								<?php if ( $magazine ) : ?>
 										<p>
 											<?php if ( $article_url ) : ?>
-												<a href="<?php echo esc_url( $article_url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $magazine ); ?></a>
+												<a href="<?php echo esc_url( $article_url ); ?>" <?php echo $link_attrs; ?>><?php echo esc_html( $magazine ); ?></a>
 											<?php else : ?>
 												<?php echo esc_html( $magazine ); ?>
 											<?php endif; ?>
@@ -82,7 +78,7 @@ get_header(); ?>
 								<!-- Featured Image -->
 							<?php if ( has_post_thumbnail() ) : ?>
 									<div class="featured-image">
-										<a href="<?php echo esc_url( $url ); ?>"<?php echo $target; ?><?php echo $ext_rel; ?> title="<?php echo esc_attr( get_the_title() ); ?>">
+										<a href="<?php echo esc_url( $url ); ?>" <?php echo $link_attrs; ?> title="<?php echo esc_attr( get_the_title() ); ?>">
 										<?php the_post_thumbnail( 'large' ); ?>
 										</a>
 									</div>
@@ -90,7 +86,7 @@ get_header(); ?>
 							
 								<!-- Title -->
 								<h2 class="entry-title">
-									<a href="<?php echo esc_url( $url ); ?>"<?php echo $target; ?> <?php echo $title_rel; ?>>
+									<a href="<?php echo esc_url( $url ); ?>" <?php echo $link_attrs; ?>>
 									<?php echo esc_html( get_the_title() ); ?>
 									</a>
 								</h2>
