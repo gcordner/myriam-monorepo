@@ -12,57 +12,54 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header(); ?>
 <div <?php generate_do_attr( 'content' ); ?>>
 	<main <?php generate_do_attr( 'main' ); ?>>
-	<?php
-	/**
-	 * Generate_before_main_content hook.
-	 *
-	 * @since 0.1
-	 */
-	do_action( 'generate_before_main_content' );
-
-	if ( have_posts() ) :
-		?>
-
 		<?php
 		/**
-		 * Generate_archive_title hook.
+		 * Generate_before_main_content hook.
 		 *
 		 * @since 0.1
-		 *
-		 * @hooked generate_archive_title - 10
 		 */
-		do_action( 'generate_archive_title' );
-		?>
+		do_action( 'generate_before_main_content' );
+
+		if ( have_posts() ) :
+			/**
+			 * Generate_archive_title hook.
+			 *
+			 * @since 0.1
+			 *
+			 * @hooked generate_archive_title - 10
+			 */
+			do_action( 'generate_archive_title' );
+			?>
 
 			<div class="writing-grid">
-			<?php
-			while ( have_posts() ) :
-				the_post();
-				?>
 				<?php
-				// Get ACF fields.
-				$article_url = get_field( 'url' );
-				$magazine    = get_field( 'magazine_name' );
-				$pub_date    = get_the_date();
+				while ( have_posts() ) :
+					the_post();
 
-				// Determine URL - external or internal.
-				$is_external = (bool) $article_url;
-				if ( $is_external ) {
-					$url      = $article_url;
-					$link_rel = 'noopener noreferrer';
-				} else {
-					$url      = get_permalink();
-					$link_rel = 'bookmark';
-				}
-				?>
-				
+					// Get ACF fields.
+					$article_url = get_field( 'url' );
+					$magazine    = get_field( 'magazine_name' );
+					$pub_date    = get_the_date();
+
+					// Determine URL - external or internal.
+					$is_external = (bool) $article_url;
+					if ( $is_external ) {
+						$url      = $article_url;
+						$link_rel = 'noopener noreferrer';
+					} else {
+						$url      = get_permalink();
+						$link_rel = 'bookmark';
+					}
+					?>
+
 					<div class="writing-item">
 						<article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
-						
+
 							<header class="entry-header">
+
 								<!-- Magazine and Date -->
 								<div class="magazine">
-								<?php if ( $magazine ) : ?>
+									<?php if ( $magazine ) : ?>
 										<p>
 											<?php if ( $is_external ) : ?>
 												<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $magazine ); ?></a>
@@ -71,24 +68,24 @@ get_header(); ?>
 											<?php endif; ?>
 											<span class="date"> | <?php echo esc_html( $pub_date ); ?></span>
 										</p>
-								<?php else : ?>
+									<?php else : ?>
 										<p><span class="date"><?php echo esc_html( $pub_date ); ?></span></p>
-								<?php endif; ?>
+									<?php endif; ?>
 								</div>
-							
+
 								<!-- Featured Image -->
-							<?php if ( has_post_thumbnail() ) : ?>
+								<?php if ( has_post_thumbnail() ) : ?>
 									<div class="featured-image">
 										<a href="<?php echo esc_url( $url ); ?>"
 															<?php
 															if ( $is_external ) :
 																?>
 											target="_blank"<?php endif; ?> rel="<?php echo esc_attr( $link_rel ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>">
-										<?php the_post_thumbnail( 'large' ); ?>
+											<?php the_post_thumbnail( 'large' ); ?>
 										</a>
 									</div>
-							<?php endif; ?>
-							
+								<?php endif; ?>
+
 								<!-- Title -->
 								<h2 class="entry-title">
 									<a href="<?php echo esc_url( $url ); ?>"
@@ -96,50 +93,51 @@ get_header(); ?>
 														if ( $is_external ) :
 															?>
 										target="_blank"<?php endif; ?> rel="<?php echo esc_attr( $link_rel ); ?>">
-									<?php echo esc_html( get_the_title() ); ?>
+										<?php echo esc_html( get_the_title() ); ?>
 									</a>
 								</h2>
+
 							</header>
-						
+
 							<!-- Content -->
 							<div class="entry-content">
-							<?php the_excerpt(); ?>
+								<?php the_excerpt(); ?>
 							</div>
-						
+
 							<!-- Tags -->
 							<footer class="entry-footer">
-							<?php if ( has_tag() ) : ?>
+								<?php if ( has_tag() ) : ?>
 									<div class="tags">
-									<?php the_tags( '', ' ' ); ?>
+										<?php the_tags( '', ' ' ); ?>
 									</div>
-							<?php endif; ?>
+								<?php endif; ?>
 							</footer>
-						
+
 						</article>
 					</div>
-				
-			<?php endwhile; ?>
+
+				<?php endwhile; ?>
 			</div>
 
-		<?php
-		// Pagination.
-		the_posts_pagination();
-		?>
+			<?php
+			// Pagination.
+			the_posts_pagination();
 
-	<?php else : ?>
+		else :
+			?>
 
 			<p>No writing pieces found.</p>
 
-	<?php endif; ?>
+		<?php endif; ?>
 
-	<?php
-	/**
-	 * Generate_after_main_content hook.
-	 *
-	 * @since 0.1
-	 */
-	do_action( 'generate_after_main_content' );
-	?>
+		<?php
+		/**
+		 * Generate_after_main_content hook.
+		 *
+		 * @since 0.1
+		 */
+		do_action( 'generate_after_main_content' );
+		?>
 	</main>
 </div>
 
@@ -154,4 +152,3 @@ do_action( 'generate_after_primary_content_area' );
 generate_construct_sidebars();
 
 get_footer();
-?>
