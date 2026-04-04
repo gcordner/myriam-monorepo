@@ -91,7 +91,7 @@ get_header(); ?>
 								<!-- Title -->
 								<h2 class="entry-title">
 									<a href="<?php echo esc_url( $url ); ?>"<?php echo $target; ?> <?php echo $title_rel; ?>>
-									<?php the_title(); ?>
+									<?php echo esc_html( get_the_title() ); ?>
 									</a>
 								</h2>
 							</header>
