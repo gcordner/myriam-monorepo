@@ -238,4 +238,6 @@ add_filter( 'template_include', function ( $template ) {
 	return $template;
 } );
 
+require_once get_stylesheet_directory() . '/inc/student-portal.php';
+
 

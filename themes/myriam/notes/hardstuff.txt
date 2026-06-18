@@ -1,0 +1,233 @@
+Hard Stuff — Student Portal Build Plan
+=======================================
+Class: Hard Stuff (6-week course, ~75 min/session, recorded over Zoom)
+Site: Myriam Gurba's WordPress site (GeneratePress child theme: myriam)
+Plugin in use: Members (by Blair Williams) for role management
+
+
+OVERVIEW
+--------
+A private student portal where enrolled students log in to access per-week
+class materials: Vimeo recording embed, slides download link, and notes/
+suggested reading written in the block editor. Each week page has anchor
+links at the top so students can jump directly to a section.
+
+No LMS plugin. Custom-built, fits cleanly inside the existing theme.
+
+
+USER ROLES
+----------
+- Create a "Student" role via the Members plugin (WP Admin → Members → Roles)
+- Admin creates one WP account per enrolled student and assigns the Student role
+- Admins and Students can access the portal; all others are redirected to login
+
+
+WORDPRESS PAGES TO CREATE (admin tasks, not code)
+-------------------------------------------------
+1. Hard Stuff portal index
+   - Slug: hard-stuff  (IMPORTANT: slug must be exactly this)
+   - Template: auto (page-hard-stuff.php activates automatically for this slug)
+   - Content: optional short intro/description of the class
+   - Parent: none
+
+2. Six week pages (one per class session)
+   - Parent: Hard Stuff (the page above)
+   - Template: Class Week  (select in Page Attributes)
+   - Title: the week's topic (e.g. "Introduction to the Work")
+   - Content (block editor): class notes and suggested reading
+   - Metabox fields (see WEEK PAGE METABOX below):
+       Week Number, Vimeo URL, Slides URL, Slides Button Label
+
+3. Login page
+   - Slug: login  (IMPORTANT: slug must be exactly this)
+   - Template: Login Page  (select in Page Attributes)
+   - Content: leave empty
+
+4. Navigation
+   - Add "Hard Stuff" link to primary nav menu in WP Admin → Appearance → Menus
+   - In Screen Options, enable "CSS Classes" for menu items
+   - Add CSS class "student-only" to the Hard Stuff menu item
+     → This item will be hidden from non-logged-in visitors automatically
+   - No need to touch footer menu — Log In / Log Out appends itself automatically
+
+
+WEEK PAGE METABOX
+-----------------
+A "Class Week Details" metabox appears in the page editor for week pages.
+Fields:
+  - Week Number (integer, 1–6)
+  - Slides Button Label (text, defaults to "Download Slides")
+  - Vimeo Recording URL (leave empty for weeks with no recording — e.g. Week 1)
+  - Slides URL (leave empty if no slides for that week)
+
+Sections with empty URLs are automatically hidden from the page.
+Notes and suggested reading go in the block editor content area as normal.
+
+
+FILES TO CREATE
+---------------
+inc/student-portal.php
+  PHP logic for the entire portal. Includes:
+  - myriam_is_student() helper (true for admins and users with 'student' role)
+  - myriam_vimeo_embed_url() — converts any Vimeo URL to an embed URL,
+    handles private videos with hash (vimeo.com/ID/HASH format)
+  - wp_nav_menu_objects filter — strips "student-only" nav items for non-students
+  - wp_nav_menu_items filter — appends Log In / Log Out to the footer menu
+  - login_url filter — wp_login_url() returns /login/ if that page exists
+  - login_init action — redirects wp-login.php GET visits to /login/
+  - wp_login_failed action — redirects failed logins back to /login/?login=failed
+  - login_redirect filter — sends students to /hard-stuff/ after successful login
+  - template_redirect action — gates /hard-stuff/ and all child pages;
+    non-students are bounced to the login page with redirect_to set
+  - add_meta_boxes_page action — registers the week details metabox on pages
+    that are either children of /hard-stuff/ or use the Class Week template
+  - myriam_render_week_metabox() — renders the metabox HTML
+  - save_post_page action — saves and sanitizes the metabox fields
+
+page-hard-stuff.php  (auto-selected by WP for the page with slug "hard-stuff")
+  Portal index template. Shows the page title and optional intro (from block
+  editor), then a 2-column grid of week cards. Each card shows the week
+  number, topic title, and a "Recording available" badge if a Vimeo URL
+  is set. Cards link to the individual week pages.
+
+page-class-week.php  (Template Name: Class Week)
+  Individual week page template. Structure:
+    - Header: "WEEK N" kicker + page title (dark teal background)
+    - Anchor nav: pill links → [Recording] [Slides] [Materials]
+      (Recording and Slides pills only appear if those fields are filled in)
+    - #recording section: responsive 16:9 Vimeo iframe embed
+    - #slides section: download/view link button
+    - #materials section: block editor content (Notes & Materials)
+  Section headings in the materials area are overridden to left-align
+  (overrides the global center-align set in typography.scss).
+
+page-login.php  (Template Name: Login Page)
+  Custom login page matching the site design. Features:
+    - Redirects already-logged-in users (students → /hard-stuff/, admins → /wp-admin/)
+    - "Hard Stuff / [Site Name]" branding header on the card
+    - Error message if ?login=failed is set
+    - wp_login_form() with redirect_to passed through
+    - "Forgot your password?" link pointing to wp-login.php?action=lostpassword
+  Styled as a centered white card with a yellow top border.
+
+css/src/base/_student-portal.scss
+  All styles for the portal, week pages, and login page. Uses $variables from
+  _theme-values.scss and breakpoints from _variables.scss.
+  Sections:
+    - Portal index: .portal-header, .portal-title, .week-grid, .week-card
+    - Week page: .week-header, .week-nav, .week-nav__link, .week-section,
+      .week-section__title, .vimeo-wrapper, .slides-link
+    - Login page: .login-page-wrap, .login-card, #loginform overrides,
+      .login-error, .login-forgot
+
+
+FILES TO MODIFY
+---------------
+functions.php
+  Add: require_once get_stylesheet_directory() . '/inc/student-portal.php';
+  (at the bottom of the file)
+
+css/src/main.scss
+  Add: @use 'base/events';         ← also fixes existing omission
+  Add: @use 'base/student-portal';
+  (after the existing @use 'base/footer' line)
+
+
+BUILD STEP
+----------
+After all files are written, run the webpack build:
+  cd /path/to/themes/myriam && npm run build
+  (or whatever the build script is in package.json)
+
+
+DESIGN NOTES
+------------
+Color palette in use (from theme.json / _theme-values.scss):
+  $dark_teal:       #0b2225  — primary dark bg for headers, cards, buttons
+  $poppy_yellow:    #F2C60A  — accent, hover states, kicker labels
+  $black:           #000000
+  $white:           #FAFBFC
+  $not_quite_white: #F2F2F2
+  $dark_brick:      #732424  — error states
+
+Fonts:
+  Bebas Neue — headings, kickers, button labels (italic on h1)
+  Montserrat — body, form labels, card titles
+
+Week cards: dark teal bg, yellow week number, hover → yellow bg / dark text
+Anchor nav pills: dark teal outline, hover → yellow fill
+Section headings: Bebas Neue, left-aligned (overrides global center)
+Login card: white, yellow top border, yellow submit button
+
+
+KNOWN ISSUE (pre-existing, not in scope)
+-----------------------------------------
+css/src/base/_events.scss is not imported in css/src/main.scss, so
+event styles are not compiled into the output CSS. Adding @use 'base/events'
+to main.scss fixes this and is included in the FILES TO MODIFY step above.
+
+
+SETUP STEPS IN WP ADMIN (after code is deployed)
+-------------------------------------------------
+Run these once. Order matters — create the role before creating student accounts.
+
+1. CREATE THE STUDENT ROLE
+   Members → Roles → Add New Role
+   - Role name: Student
+   - No special capabilities needed beyond the defaults
+   - Save
+
+2. CREATE THE PORTAL PAGES
+   Pages → Add New, create these four pages:
+
+   a) Hard Stuff (portal index)
+      - Title: Hard Stuff
+      - Slug: hard-stuff  ← must be exactly this
+      - Template: Default (page-hard-stuff.php activates automatically via slug)
+      - Parent: none
+      - Content: optional short description of the class
+      - Publish
+
+   b) Login
+      - Title: Login (or "Student Login")
+      - Slug: login  ← must be exactly this
+      - Template: Login Page  (Page Attributes panel)
+      - Content: leave empty
+      - Publish
+
+   c) Six week pages (repeat for each week)
+      - Title: the week's topic (e.g. "Introduction to the Work")
+      - Template: Class Week  (Page Attributes panel)
+      - Parent: Hard Stuff  (Page Attributes panel)
+      - Order: set 1 through 6 so cards appear in sequence
+      - Content (block editor): class notes and suggested reading for that week
+      - Class Week Details metabox (below the editor):
+          Week Number:         1  (or 2, 3 … 6)
+          Slides Button Label: Download Slides  (or leave default)
+          Vimeo Recording URL: paste full Vimeo URL — leave blank for Week 1
+          Slides URL:          paste link to slides — leave blank if none
+      - Publish
+
+3. ADD THE NAV MENU LINK
+   Appearance → Menus → select the primary menu
+   - Screen Options (top right) → check "CSS Classes"
+   - Add "Hard Stuff" as a Custom Link pointing to /hard-stuff/
+   - Expand the item → CSS Classes field → type: student-only
+   - Save Menu
+   The link will now be invisible to visitors who are not logged in as students.
+
+4. CREATE STUDENT ACCOUNTS
+   Users → Add New (repeat for each enrolled student)
+   - Username: firstname or firstnamelastname (something simple)
+   - Email: student's email address
+   - Role: Student
+   - Send the user notification email, or note the password and share separately
+   Students log in at /login/ and land on /hard-stuff/ automatically.
+
+5. ADDING NEW WEEKS LATER
+   Just create a new child page of Hard Stuff with the Class Week template,
+   fill in the metabox, and it appears in the grid automatically in menu order.
+
+6. UPDATING RECORDINGS / SLIDES
+   Edit the week page → update the Vimeo URL or Slides URL in the metabox → Update.
+   No theme changes needed.
