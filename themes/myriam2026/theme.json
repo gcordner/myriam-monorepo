@@ -1,0 +1,160 @@
+{
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "color": {
+      "defaultPalette": false,
+      "palette": [
+        {
+          "slug": "poppy-yellow",
+          "color": "#F2C60A",
+          "name": "Poppy Yellow"
+        },
+        {
+          "slug": "poppy-state-pink",
+          "color": "#ed008e",
+          "name": "Poppy State Pink"
+        },
+        {
+          "slug": "dark-teal",
+          "color": "#0b2225",
+          "name": "Dark Teal"
+        },
+        {
+          "slug": "black",
+          "color": "#000000",
+          "name": "Black"
+        },
+        {
+          "slug": "burnt-sienna",
+          "color": "#261404",
+          "name": "Burnt Sienna"
+        },
+
+        {
+          "slug": "dark-brick",
+          "color": "#732424",
+          "name": "Dark Brick"
+        },
+        {
+          "slug": "white",
+          "color": "#FAFBFC",
+          "name": "White"
+        },
+        {
+          "slug": "not-quite-white",
+          "color": "#F2F2F2",
+          "name": "Not Quite White"
+        }
+      ],
+      "custom": true,
+      "customGradient": true
+    },
+    "layout": {
+      "contentSize": "700px",
+      "wideSize": "1290px"
+    },
+    "useRootPaddingAwareAlignments": true,
+    "typography": {
+      "customFontSize": false,
+      "defaultFontSizes": false,
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Montserrat\", sans-serif",
+          "slug": "montserrat",
+          "name": "Montserrat"
+        },
+        {
+          "fontFamily": "\"Bebas Neue\", cursive",
+          "slug": "bebas-neue",
+          "name": "Bebas Neue"
+        },
+        {
+          "fontFamily": "\"Big Shoulders\", serif",
+          "slug": "big-shoulders",
+          "name": "Big Shoulders"
+        }
+      ],
+      "theme": [],
+      "fontSizes": [
+        {
+          "slug": "small",
+          "size": "0.875rem",
+          "name": "Small"
+        },
+        {
+          "slug": "my-medium",
+          "size": "1rem",
+          "name": "Medium"
+        },
+
+        {
+          "slug": "large",
+          "size": "1.25rem",
+          "name": "Large"
+        },
+        {
+          "slug": "extra-large",
+          "size": "clamp(1.5rem, 4vw, 2rem)",
+          "name": "Extra Large"
+        },
+        {
+          "slug": "triple-xl",
+          "size": "3rem",
+          "name": "Triple XL"
+        },
+        {
+          "slug": "Huge",
+          "size": "4rem",
+          "name": "Huge"
+        }
+      ]
+    },
+    "spacing": {
+      "units": ["px", "rem", "em", "%", "vw", "vh"],
+      "customSpacing": true,
+      "spacingSizes": [
+        { "slug": "10", "size": "0.5rem", "name": "XS" },
+        { "slug": "20", "size": "0.75rem", "name": "S" },
+        { "slug": "30", "size": "1rem", "name": "M" },
+        { "slug": "40", "size": "1.5rem", "name": "L" },
+        { "slug": "50", "size": "2rem", "name": "XL" },
+        { "slug": "60", "size": "3rem", "name": "2XL" },
+        { "slug": "70", "size": "4rem", "name": "3XL" },
+        { "slug": "80", "size": "5rem", "name": "4XL" }
+      ]
+    }
+  },
+  "styles": {
+    "typography": {
+      "fontFamily": "var(--wp--preset--font-family--montserrat)"
+    },
+    "elements": {
+      "h1": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h2": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h3": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h4": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      },
+      "h5": {
+        "typography": {
+          "fontFamily": "var(--wp--preset--font-family--bebas-neue)"
+        }
+      }
+    }
+  }
+}
