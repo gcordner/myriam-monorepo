@@ -225,6 +225,19 @@ add_filter(
 	3
 );
 
+// WooCommerce has its own login redirect that overrides login_redirect.
+add_filter(
+	'woocommerce_login_redirect',
+	function ( string $redirect, \WC_Customer $customer ): string {
+		if ( myriam_is_student( $customer->get_id() ) ) {
+			return home_url( '/hard-stuff/' );
+		}
+		return $redirect;
+	},
+	10,
+	2
+);
+
 // ── Access control: gate the portal page and all class week posts ─────────────
 
 add_action(
