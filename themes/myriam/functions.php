@@ -238,6 +238,8 @@ add_filter( 'template_include', function ( $template ) {
 	return $template;
 } );
 
+require_once get_stylesheet_directory() . '/inc/student-portal.php';
+
 // Register Events Custom Post Type
 function create_events_post_type() {
     $labels = array(

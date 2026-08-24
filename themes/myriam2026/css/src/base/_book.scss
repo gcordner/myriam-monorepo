@@ -1,0 +1,86 @@
+// Adjust this path to your project structure:
+@use './mixins';
+@use './variables';
+
+/* Single Book layout (mobile first) */
+.book-single {
+    margin: var(--spacing, 2rem) auto;
+    padding-top: var(--wp--preset--spacing--80, 5rem); // 80px stays
+    // 1rem L/R on mobile; 0 at ≥768px
+    @include mixins.mobile-padding(var(--wp--preset--spacing--30, 1rem), 768px);
+}
+
+.book-header {
+    margin-bottom: 1rem;
+}
+
+.book-title {
+    margin: 0 0 .25rem 0;
+    line-height: 1.15;
+    text-align: left;
+    font-style: normal;
+}
+
+.book-subheading {
+    margin: 0 0 1rem 0;
+    font-size: 1.75rem; // mobile first
+    text-align: left;
+    font-style: italic;
+
+    @include mixins.up(variables.$bp-md) {
+        // ≥ 768px
+        font-size: 2rem;
+    }
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    /* mobile / single-column: aside on top, main below */
+    grid-template-areas:
+        "aside"
+        "main";
+}
+
+.book-main {
+    grid-area: main;
+}
+
+.book-aside {
+    grid-area: aside;
+}
+
+@media (min-width: 992px) {
+    .book-grid {
+        grid-template-columns: 7fr 5fr;
+        /* desktop: main on the left, aside on the right */
+        grid-template-areas: "main aside";
+    }
+}
+
+.book-cover {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.book-meta {
+    border-top: 1px solid var(--gp-border-color, #ddd);
+    padding-top: 1rem;
+}
+
+.book-meta-heading {
+    font-size: 1.125rem;
+    margin: 0 0 .75rem 0;
+}
+
+.book-price {
+    font-size: 1.05rem;
+}
+
+.book-cta .button {
+    display: inline-block;
+    text-decoration: none;
+}

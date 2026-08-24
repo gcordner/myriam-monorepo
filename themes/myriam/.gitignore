@@ -1,0 +1,8 @@
+node_modules/
+css/build/
+js/build/
+font/
+.DS_Store
+*.old
+*.new
+THEME-AUDIT-REPORT.md

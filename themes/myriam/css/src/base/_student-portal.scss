@@ -1,0 +1,391 @@
+@use 'theme-values' as *;
+@use 'variables' as *;
+
+// ── Portal Index ──────────────────────────────────────────────────────────────
+
+.portal-header {
+	padding: 2rem 0;
+	margin-bottom: 2.5rem;
+	text-align: center;
+}
+
+.portal-title {
+	font-family: 'Bebas Neue', cursive;
+	font-size: clamp(3rem, 8vw, 5rem);
+	font-style: italic;
+	color: $dark_teal;
+	margin: 0;
+	line-height: 1;
+}
+
+.portal-intro {
+	margin-bottom: 2.5rem;
+	text-align: center;
+}
+
+.week-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1.25rem;
+	margin-bottom: 3rem;
+
+	@media (max-width: #{$bp-sm}) {
+		grid-template-columns: 1fr;
+	}
+}
+
+.week-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	padding: 1.5rem;
+	background: $dark_teal;
+	color: $white;
+	text-decoration: none;
+	transition: background 0.2s ease, color 0.2s ease;
+
+	&:hover,
+	&:focus-visible {
+		background: $poppy_yellow;
+		color: $black;
+		outline: none;
+
+		.week-card__number { color: $black; }
+		.week-card__arrow  { transform: translateX(5px); }
+	}
+}
+
+.week-card__number {
+	font-family: 'Bebas Neue', cursive;
+	font-size: 1.1rem;
+	letter-spacing: 0.08em;
+	color: $poppy_yellow;
+	transition: color 0.2s ease;
+}
+
+.week-card__title {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.95rem;
+	font-weight: 600;
+	flex: 1;
+	line-height: 1.4;
+}
+
+.week-card__badge {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.7rem;
+	letter-spacing: 0.04em;
+	opacity: 0.75;
+}
+
+.week-card__arrow {
+	font-size: 1.1rem;
+	align-self: flex-end;
+	display: inline-block;
+	transition: transform 0.2s ease;
+}
+
+// ── Week Page ─────────────────────────────────────────────────────────────────
+
+// Make WordPress oEmbed/block embed iframes responsive when dropped into
+// the content area rather than the metabox recording field.
+.week-content {
+	padding: 2rem 0 3rem 0;
+
+	.wp-block-embed__wrapper {
+		position: relative;
+		padding-bottom: 56.25%;
+		height: 0;
+		overflow: hidden;
+
+		iframe {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+	}
+}
+
+// Override any height: 100% injected by the Vimeo player on week pages.
+body.single-class_week {
+	height: auto !important;
+	overflow-y: auto !important;
+}
+
+.week-header {
+	padding: 2rem 0 0;
+	margin-bottom: 0;
+	text-align: center;
+}
+
+.week-header__kicker {
+	font-family: 'Bebas Neue', cursive;
+	font-size: 1rem;
+	letter-spacing: 0.18em;
+	color: $dark_teal;
+	margin: 0 0 0.3rem;
+	text-transform: uppercase;
+}
+
+.week-header__title {
+	font-family: 'Bebas Neue', cursive;
+	font-size: clamp(2rem, 6vw, 3.5rem);
+	font-style: italic;
+	color: $dark_teal;
+	margin: 0;
+	text-align: center;
+}
+
+.week-nav {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-bottom: 2.5rem;
+}
+
+.week-nav__link {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 0.4rem 1rem;
+	border: 2px solid $dark_teal;
+	color: $dark_teal;
+	transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+	&:hover,
+	&:focus-visible {
+		background: $poppy_yellow;
+		border-color: $poppy_yellow;
+		color: $black;
+		outline: none;
+	}
+}
+
+.week-section {
+	margin-bottom: 3rem;
+	padding-top: 1.5rem;
+	border-top: 2px solid $not_quite_white;
+}
+
+.week-section__title {
+	font-family: 'Bebas Neue', cursive;
+	font-size: 1.6rem;
+	letter-spacing: 0.04em;
+	color: $dark_teal;
+	text-align: left;
+	margin-bottom: 1.25rem;
+}
+
+.vimeo-wrapper {
+	position: relative;
+	padding-bottom: 56.25%;
+	height: 0;
+	overflow: hidden;
+	background: $black;
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border: 0;
+	}
+}
+
+.slides-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 700;
+	font-size: 0.85rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 0.75rem 1.5rem;
+	background: $dark_teal;
+	color: $white;
+	transition: background 0.15s ease, color 0.15s ease;
+
+	&:hover,
+	&:focus-visible {
+		background: $poppy_yellow;
+		color: $black;
+		outline: none;
+	}
+}
+
+.week-section--materials {
+	border-top: none;
+	padding-top: 0;
+
+	.week-content {
+		h2,
+		h3,
+		h4,
+		.wp-block-heading {
+			text-align: left;
+			font-size: 1.4rem;
+		}
+
+		ul,
+		ol {
+			margin-left: 1.5rem;
+			margin-bottom: 1rem;
+		}
+
+		p {
+			margin-bottom: 1rem;
+		}
+	}
+}
+
+// ── Login Page ────────────────────────────────────────────────────────────────
+
+.login-page-wrap {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 3rem 1rem;
+	min-height: 45vh;
+}
+
+.login-card {
+	width: 100%;
+	max-width: 420px;
+	background: $white;
+	padding: 2.5rem;
+	border-top: 4px solid $poppy_yellow;
+	box-shadow: 0 4px 28px rgba(0, 0, 0, 0.1);
+}
+
+.login-card__header {
+	text-align: center;
+	margin-bottom: 1.75rem;
+	padding-bottom: 1.25rem;
+	border-bottom: 1px solid $not_quite_white;
+}
+
+.login-card__class-name {
+	display: block;
+	font-family: 'Bebas Neue', cursive;
+	font-size: 2.75rem;
+	font-style: italic;
+	color: $dark_teal;
+	line-height: 1;
+}
+
+.login-card__site-name {
+	display: block;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.75rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #999;
+	margin-top: 0.3rem;
+}
+
+.login-error {
+	background: #fdf0f0;
+	border-left: 3px solid $dark_brick;
+	color: $dark_brick;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 0.85rem;
+	padding: 0.75rem 1rem;
+	margin-bottom: 1.25rem;
+}
+
+#loginform {
+	p {
+		margin-bottom: 1rem;
+	}
+
+	label {
+		display: block;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: $dark_teal;
+		margin-bottom: 0.35rem;
+	}
+
+	input[type='text'],
+	input[type='password'] {
+		width: 100%;
+		padding: 0.6rem 0.75rem;
+		border: 2px solid #ddd;
+		font-family: 'Montserrat', sans-serif;
+		font-size: 0.95rem;
+		box-sizing: border-box;
+		transition: border-color 0.15s ease;
+		border-radius: 0;
+		-webkit-appearance: none;
+
+		&:focus {
+			outline: none;
+			border-color: $dark_teal;
+		}
+	}
+
+	.forgetmenot {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 1.25rem;
+
+		label {
+			font-size: 0.8rem;
+			letter-spacing: 0;
+			text-transform: none;
+			font-weight: 400;
+			margin: 0;
+			color: #666;
+		}
+	}
+
+	#wp-submit {
+		display: block;
+		width: 100%;
+		padding: 0.85rem;
+		background: $poppy_yellow;
+		color: $black;
+		font-family: 'Bebas Neue', cursive;
+		font-size: 1.3rem;
+		letter-spacing: 0.1em;
+		border: none;
+		cursor: pointer;
+		transition: background 0.15s ease;
+
+		&:hover,
+		&:focus-visible {
+			background: #d4a900;
+			outline: none;
+		}
+	}
+}
+
+.login-forgot {
+	text-align: center;
+	margin-top: 1.25rem;
+	margin-bottom: 0;
+
+	a {
+		font-family: 'Montserrat', sans-serif;
+		font-size: 0.8rem;
+		color: #999;
+		text-decoration: none;
+
+		&:hover {
+			color: $dark_teal;
+		}
+	}
+}

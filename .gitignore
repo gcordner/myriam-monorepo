@@ -27,6 +27,7 @@ plugins/*
 # Ignore everything in wp-content/themes except my child theme
 themes/*
 !themes/myriam/
+!themes/myriam2026/
 
 
 # Ignore any uploads or cache
