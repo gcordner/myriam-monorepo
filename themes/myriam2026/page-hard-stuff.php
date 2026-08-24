@@ -2,7 +2,7 @@
 /**
  * Portal index template — auto-selected for the page with slug "hard-stuff".
  *
- * @package Myriam
+ * @package Myriam2026
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -47,11 +47,11 @@ get_header();
 					<span class="week-card__number">
 						<?php echo $week_num
 							? esc_html( 'Week ' . $week_num )
-							: esc_html__( 'Week', 'myriam' ); ?>
+							: esc_html__( 'Week', 'myriam2026' ); ?>
 					</span>
 					<span class="week-card__title"><?php echo esc_html( $week->post_title ); ?></span>
 					<?php if ( $has_video ) : ?>
-					<span class="week-card__badge"><?php esc_html_e( '&#9654; Recording available', 'myriam' ); ?></span>
+					<span class="week-card__badge"><?php esc_html_e( '&#9654; Recording available', 'myriam2026' ); ?></span>
 					<?php endif; ?>
 					<span class="week-card__arrow" aria-hidden="true">&#8594;</span>
 				</a>

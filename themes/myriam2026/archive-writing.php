@@ -2,7 +2,7 @@
 /**
  * Archive template for Writing custom post type
  *
- * @package Myriam
+ * @package Myriam2026
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

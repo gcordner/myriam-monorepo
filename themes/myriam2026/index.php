@@ -6,7 +6,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package Myriam
+ * @package Myriam2026
  */
 // Load parent theme's index.php
 get_template_part('index');

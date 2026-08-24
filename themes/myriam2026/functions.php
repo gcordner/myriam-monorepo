@@ -1,8 +1,8 @@
 <?php
 /**
- * Myriam theme functions.
+ * Myriam2026 theme functions.
  *
- * @package Myriam
+ * @package Myriam2026
  */
 
 // Enqueue frontend assets.
@@ -20,7 +20,7 @@ add_action(
 		// Enqueue CSS.
 		foreach ( glob( $css_dir . 'theme.min.*.css' ) as $css_file ) {
 			wp_enqueue_style(
-				'myriam-theme-style',
+				'myriam2026-theme-style',
 				$theme_uri . '/css/build/' . basename( $css_file ),
 				array( 'parent-style' ), // Load after parent theme.
 				filemtime( $css_file )
@@ -31,7 +31,7 @@ add_action(
 		// Enqueue JS.
 		foreach ( glob( $js_dir . 'main.min.*.js' ) as $js_file ) {
 			wp_enqueue_script(
-				'myriam-theme-script',
+				'myriam2026-theme-script',
 				$theme_uri . '/js/build/' . basename( $js_file ),
 				array( 'wp-element', 'wp-hooks' ), // Add WordPress dependencies.
 				filemtime( $js_file ),
@@ -54,7 +54,7 @@ add_action(
 		$css_files = glob( $theme_dir . '/css/build/theme.min.*.css' );
 		if ( ! empty( $css_files ) ) {
 			wp_enqueue_style(
-				'myriam-editor-styles',
+				'myriam2026-editor-styles',
 				$theme_uri . '/css/build/' . basename( $css_files[0] ),
 				array(),
 				filemtime( $css_files[0] )
@@ -65,7 +65,7 @@ add_action(
 		$js_files = glob( $theme_dir . '/js/build/main.min.*.js' );
 		if ( ! empty( $js_files ) ) {
 			wp_enqueue_script(
-				'myriam-editor-scripts',
+				'myriam2026-editor-scripts',
 				$theme_uri . '/js/build/' . basename( $js_files[0] ),
 				array( 'wp-blocks', 'wp-dom-ready', 'wp-edit-post', 'wp-components', 'wp-element', 'wp-compose' ),
 				filemtime( $js_files[0] ),

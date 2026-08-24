@@ -2,7 +2,7 @@
 /**
  * Student portal: roles, access control, nav, login, and week page meta.
  *
- * @package Myriam
+ * @package Myriam2026
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * True if the current (or given) user can access the student portal.
  * Admins always pass; others need the 'student' role.
  */
-function myriam_is_student( int $user_id = 0 ): bool {
+function myriam2026_is_student( int $user_id = 0 ): bool {
 	$user = $user_id ? get_user_by( 'id', $user_id ) : wp_get_current_user();
 	if ( ! $user || ! $user->ID ) {
 		return false;
@@ -26,7 +26,7 @@ function myriam_is_student( int $user_id = 0 ): bool {
  * Converts any Vimeo URL to an embed URL.
  * Handles public (vimeo.com/ID) and private (vimeo.com/ID/HASH) formats.
  */
-function myriam_vimeo_embed_url( string $url ): string {
+function myriam2026_vimeo_embed_url( string $url ): string {
 	$url = trim( $url );
 	if ( empty( $url ) ) {
 		return '';
@@ -53,11 +53,11 @@ add_action(
 			'class_week',
 			array(
 				'labels'        => array(
-					'name'          => __( 'Class Weeks', 'myriam' ),
-					'singular_name' => __( 'Class Week', 'myriam' ),
-					'add_new_item'  => __( 'Add New Week', 'myriam' ),
-					'edit_item'     => __( 'Edit Week', 'myriam' ),
-					'all_items'     => __( 'All Weeks', 'myriam' ),
+					'name'          => __( 'Class Weeks', 'myriam2026' ),
+					'singular_name' => __( 'Class Week', 'myriam2026' ),
+					'add_new_item'  => __( 'Add New Week', 'myriam2026' ),
+					'edit_item'     => __( 'Edit Week', 'myriam2026' ),
+					'all_items'     => __( 'All Weeks', 'myriam2026' ),
 				),
 				'public'        => true,
 				'show_in_rest'  => true,
@@ -90,19 +90,19 @@ add_filter(
 // Flush rewrite rules once after the CPT is first registered, and again any
 // time the theme is reactivated.  Uses a versioned option so it only runs once
 // per version bump.
-add_action( 'after_switch_theme', 'myriam_schedule_rewrite_flush' );
-function myriam_schedule_rewrite_flush(): void {
-	set_transient( 'myriam_flush_rewrite', 1 );
+add_action( 'after_switch_theme', 'myriam2026_schedule_rewrite_flush' );
+function myriam2026_schedule_rewrite_flush(): void {
+	set_transient( 'myriam2026_flush_rewrite', 1 );
 }
 
 add_action(
 	'init',
 	function (): void {
 		$version = '1';
-		if ( get_transient( 'myriam_flush_rewrite' ) || get_option( 'myriam_rewrite_version' ) !== $version ) {
+		if ( get_transient( 'myriam2026_flush_rewrite' ) || get_option( 'myriam2026_rewrite_version' ) !== $version ) {
 			flush_rewrite_rules();
-			update_option( 'myriam_rewrite_version', $version );
-			delete_transient( 'myriam_flush_rewrite' );
+			update_option( 'myriam2026_rewrite_version', $version );
+			delete_transient( 'myriam2026_flush_rewrite' );
 		}
 	},
 	999
@@ -113,7 +113,7 @@ add_action(
 add_filter(
 	'wp_nav_menu_objects',
 	function ( array $items, $args ): array {
-		if ( myriam_is_student() ) {
+		if ( myriam2026_is_student() ) {
 			return $items;
 		}
 		return array_values(
@@ -136,10 +136,10 @@ add_filter(
 			return $items;
 		}
 		if ( is_user_logged_in() ) {
-			$label = esc_html__( 'Log Out', 'myriam' );
+			$label = esc_html__( 'Log Out', 'myriam2026' );
 			$url   = wp_logout_url( home_url( '/' ) );
 		} else {
-			$label = esc_html__( 'Log In', 'myriam' );
+			$label = esc_html__( 'Log In', 'myriam2026' );
 			$url   = wp_login_url( get_permalink() ?: home_url( '/' ) );
 		}
 		return $items . sprintf(
@@ -213,7 +213,7 @@ add_action(
 add_filter(
 	'login_redirect',
 	function ( string $redirect_to, string $requested_redirect_to, $user ): string {
-		if ( $user && ! is_wp_error( $user ) && myriam_is_student( $user->ID ) ) {
+		if ( $user && ! is_wp_error( $user ) && myriam2026_is_student( $user->ID ) ) {
 			if ( $requested_redirect_to && strpos( $requested_redirect_to, home_url() ) === 0 ) {
 				return $requested_redirect_to;
 			}
@@ -229,7 +229,7 @@ add_filter(
 add_filter(
 	'woocommerce_login_redirect',
 	function ( string $redirect, \WC_Customer $customer ): string {
-		if ( myriam_is_student( $customer->get_id() ) ) {
+		if ( myriam2026_is_student( $customer->get_id() ) ) {
 			return home_url( '/hard-stuff/' );
 		}
 		return $redirect;
@@ -246,7 +246,7 @@ add_action(
 		if ( ! is_page( 'hard-stuff' ) && ! is_singular( 'class_week' ) ) {
 			return;
 		}
-		if ( ! myriam_is_student() ) {
+		if ( ! myriam2026_is_student() ) {
 			wp_safe_redirect( wp_login_url( get_permalink() ) );
 			exit;
 		}
@@ -260,8 +260,8 @@ add_action(
 	function (): void {
 		add_meta_box(
 			'hs_week_details',
-			__( 'Class Week Details', 'myriam' ),
-			'myriam_render_week_metabox',
+			__( 'Class Week Details', 'myriam2026' ),
+			'myriam2026_render_week_metabox',
 			'class_week',
 			'normal',
 			'high'
@@ -269,7 +269,7 @@ add_action(
 	}
 );
 
-function myriam_render_week_metabox( WP_Post $post ): void {
+function myriam2026_render_week_metabox( WP_Post $post ): void {
 	wp_nonce_field( 'hs_week_details_save', 'hs_week_nonce' );
 	$week_num     = get_post_meta( $post->ID, 'hs_week_number', true );
 	$vimeo_url    = get_post_meta( $post->ID, 'hs_vimeo_url', true );
@@ -284,30 +284,30 @@ function myriam_render_week_metabox( WP_Post $post ): void {
 	</style>
 	<div class="hs-meta">
 		<div class="hs-meta__field">
-			<label for="hs_week_number"><?php esc_html_e( 'Week Number', 'myriam' ); ?></label>
+			<label for="hs_week_number"><?php esc_html_e( 'Week Number', 'myriam2026' ); ?></label>
 			<input type="number" id="hs_week_number" name="hs_week_number"
 				value="<?php echo esc_attr( $week_num ); ?>" min="1" max="10" />
 		</div>
 		<div class="hs-meta__field">
-			<label for="hs_slides_label"><?php esc_html_e( 'Slides Button Label', 'myriam' ); ?></label>
+			<label for="hs_slides_label"><?php esc_html_e( 'Slides Button Label', 'myriam2026' ); ?></label>
 			<input type="text" id="hs_slides_label" name="hs_slides_label"
 				value="<?php echo esc_attr( $slides_label ?: 'Download Slides' ); ?>" />
 		</div>
 		<div class="hs-meta__field hs-meta__field--full">
-			<label for="hs_vimeo_url"><?php esc_html_e( 'Vimeo Recording URL (leave empty if not recorded)', 'myriam' ); ?></label>
+			<label for="hs_vimeo_url"><?php esc_html_e( 'Vimeo Recording URL (leave empty if not recorded)', 'myriam2026' ); ?></label>
 			<input type="url" id="hs_vimeo_url" name="hs_vimeo_url"
 				value="<?php echo esc_attr( $vimeo_url ); ?>"
 				placeholder="https://vimeo.com/123456789" />
 		</div>
 		<div class="hs-meta__field hs-meta__field--full">
-			<label for="hs_slides_url"><?php esc_html_e( 'Slides URL (leave empty if no slides)', 'myriam' ); ?></label>
+			<label for="hs_slides_url"><?php esc_html_e( 'Slides URL (leave empty if no slides)', 'myriam2026' ); ?></label>
 			<input type="url" id="hs_slides_url" name="hs_slides_url"
 				value="<?php echo esc_attr( $slides_url ); ?>"
 				placeholder="https://drive.google.com/..." />
 		</div>
 	</div>
 	<p class="description" style="margin-top: 8px;">
-		<?php esc_html_e( 'Notes and suggested reading go in the block editor below. Empty URL fields hide that section from students.', 'myriam' ); ?>
+		<?php esc_html_e( 'Notes and suggested reading go in the block editor below. Empty URL fields hide that section from students.', 'myriam2026' ); ?>
 	</p>
 	<?php
 }

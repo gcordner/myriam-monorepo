@@ -5,13 +5,13 @@
  *
  * Custom-styled login page for the Hard Stuff student portal.
  *
- * @package Myriam
+ * @package Myriam2026
  */
 
 defined( 'ABSPATH' ) || exit;
 
 if ( is_user_logged_in() ) {
-	wp_safe_redirect( myriam_is_student() ? home_url( '/hard-stuff/' ) : admin_url() );
+	wp_safe_redirect( myriam2026_is_student() ? home_url( '/hard-stuff/' ) : admin_url() );
 	exit;
 }
 
@@ -38,7 +38,7 @@ get_header();
 
 				<?php if ( $has_error ) : ?>
 				<div class="login-error" role="alert">
-					<?php esc_html_e( 'Incorrect username or password. Please try again.', 'myriam' ); ?>
+					<?php esc_html_e( 'Incorrect username or password. Please try again.', 'myriam2026' ); ?>
 				</div>
 				<?php endif; ?>
 
@@ -46,10 +46,10 @@ get_header();
 				wp_login_form(
 					array(
 						'redirect'       => esc_url( $redirect_to ),
-						'label_username' => __( 'Username or Email Address', 'myriam' ),
-						'label_password' => __( 'Password', 'myriam' ),
-						'label_remember' => __( 'Remember me', 'myriam' ),
-						'label_log_in'   => __( 'Log In', 'myriam' ),
+						'label_username' => __( 'Username or Email Address', 'myriam2026' ),
+						'label_password' => __( 'Password', 'myriam2026' ),
+						'label_remember' => __( 'Remember me', 'myriam2026' ),
+						'label_log_in'   => __( 'Log In', 'myriam2026' ),
 						'remember'       => true,
 					)
 				);
@@ -57,7 +57,7 @@ get_header();
 
 				<p class="login-forgot">
 					<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>">
-						<?php esc_html_e( 'Forgot your password?', 'myriam' ); ?>
+						<?php esc_html_e( 'Forgot your password?', 'myriam2026' ); ?>
 					</a>
 				</p>
 

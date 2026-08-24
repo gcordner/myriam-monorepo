@@ -38,7 +38,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname),
     filename: "js/build/[name].min.[fullhash].js",
-    publicPath: "/wp-content/themes/myriam/",
+    publicPath: "/wp-content/themes/myriam2026/",
   },
   module: {
     rules: [
