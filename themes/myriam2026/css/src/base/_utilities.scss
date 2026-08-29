@@ -15,25 +15,18 @@
 
 .white-link {
     a {
-        color: #F2F2F2 !important;
-        text-decoration: none !important;
-    }
-}
-
-.white-link {
-    a {
-        color: #F2F2F2 !important;
+        color: theme-values.$not_quite_white !important;
         text-decoration: none !important;
 
         &:hover {
-            color: darken(#F2F2F2, 20%) !important;
+            color: darken(theme-values.$not_quite_white, 20%) !important;
         }
     }
 }
 
 .dark-teal-link {
     a {
-        color: var(--theme-palette-color-3) !important;
+        color: var(--wp--preset--color--dark-teal) !important;
         text-decoration: none !important;
     }
 }

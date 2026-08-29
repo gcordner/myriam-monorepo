@@ -45,6 +45,11 @@
           "slug": "not-quite-white",
           "color": "#F2F2F2",
           "name": "Not Quite White"
+        },
+        {
+          "slug": "pure-white",
+          "color": "#ffffff",
+          "name": "Pure White"
         }
       ],
       "custom": true,
