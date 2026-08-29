@@ -297,3 +297,96 @@ read from theme.json at all. A real palette change needs to touch
 `theme.json` **and** `generate_settings.global_colors` **and** decide what
 to do about the two SCSS findings above (F1, F2) and the Stackable scheme
 (F5), not just edit one JSON file.
+
+---
+
+## The proposed new palette (2026-08-25)
+
+Drawn from the cover of the forthcoming *15 Latinas: An Anarchic History*,
+first used in the homepage direction mockup
+(`redesign-2026/homepage-direction-mockup.html`, also published as a Claude
+Artifact). Four true colors, each with one tint/shade pair for structure and
+hover states, plus one muted text tone — a deliberate drop from the current
+8-color theme.json palette:
+
+| token | hex | role |
+|---|---|---|
+| `--ink` | `#141110` | primary dark ground (header, footer, dark sections) |
+| `--ink-soft` | `#211b17` | slightly lighter ink, structural use |
+| `--ink-line` | `#3a322c` | hairlines/dividers on ink |
+| `--paper` | `#f3ece0` | primary light ground **and** text-on-ink color |
+| `--paper-soft` | `#e7dcc7` | structural use on paper |
+| `--paper-line` | `#cfc0a4` | hairlines/dividers on paper |
+| `--flame` | `#c8422a` | the one accent — CTAs, hero quote, "misprint" flourish |
+| `--flame-dim` | `#a1341f` | flame hover/pressed state |
+| `--teal` | `#1f6f78` | secondary accent — eyebrow labels, link hover |
+| `--teal-dim` | `#164e54` | teal hover/pressed state |
+| `--ink-muted` | `#6f6455` | muted secondary text on paper |
+
+**Note:** the mockup originally had a separate `--cream` token, also
+`#f3ece0` — identical to `--paper`, split only by intended role (paper =
+background, cream = text-on-dark) rather than by actual color. Collapsed
+into a single `--paper` token used for both roles (2026-08-25) — fixed in
+the mockup file and the published Artifact.
+
+This palette is not yet reflected in `theme.json`, `generate_settings`, or
+any SCSS — it exists only in the mockup HTML today. When it's time to
+actually apply it, see the consolidation plan below.
+
+---
+
+## Consolidation plan — collapsing to a single authored source
+
+Investigated whether `theme.json` can become the *only* place colors are
+authored, with everything else (GeneratePress, SCSS) reading from it rather
+than holding independent copies. Traced this through GeneratePress's actual
+source (`wp-content/themes/generatepress/inc/`) rather than assuming.
+
+**The block editor already only reads theme.json.** Verified directly via
+`wp.data.select('core/block-editor').getSettings().colors` in a live editor
+session — the returned palette is exactly the 8 theme.json colors, nothing
+from GP or Stackable. GP does define a `generate_get_editor_color_palette()`
+function that would expose `global_colors` to the editor, but it's dead code
+— never called anywhere in the current GP source. This makes sense: when a
+theme ships `theme.json`, WordPress core supersedes GP's older
+`add_theme_support('editor-color-palette')` mechanism entirely.
+
+**GP's `global_colors` array can become a set of live aliases instead of
+hand-typed duplicates.** GP's per-element color fields don't store hex —
+`navigation_text_color` is literally stored in the database as the string
+`"var(--contrast-3)"`. GP's live-preview/output mechanism
+(`inc/customizer/fields/primary-navigation.php`) is a generic
+`{element}{property}:{value}` injector — it doesn't validate that the value
+is one of its own known slugs. So a `global_colors` entry's `color` field
+can just as easily be `var(--wp--preset--color--dark-teal)` as `#0b2225`:
+
+```json
+{"slug": "contrast", "color": "var(--wp--preset--color--dark-teal)"}
+```
+
+Do that for the 7 slots that map onto theme.json colors, and everything
+downstream inherits automatically — `navigation_text_color` still just says
+`var(--contrast-3)`, but `--contrast-3` now resolves through to theme.json's
+real custom property. One edit, not an ongoing sync chore. `base-3`
+(`#ffffff`, pure white, no theme.json counterpart) either gets added to
+theme.json as a real color or stays a literal hex in that one slot.
+
+**Limits found:**
+- No GP filter exists to compute `global_colors` from theme.json
+  automatically (`generate_get_option()` is an unfiltered plain array
+  merge) — this is a one-time fix, not a permanent auto-sync. Adding a
+  color to theme.json later still means remembering to add its alias.
+- Stackable's dormant global color scheme has no equivalent alias path.
+  Since it's not exposed to the block editor either, the realistic fix is
+  policy, not code: disable its Global Colors feature if togglable, or just
+  never open that panel.
+- F1's `--theme-palette-color-3` reference — checked the entire GP source
+  and every active plugin for that exact string. Nothing currently
+  generates it. It's not a live GP feature misfiring; it's a fully dead
+  reference to an older GP variable-naming scheme. No aliasing rescues it —
+  it needs to be repointed to a real variable directly when this is fixed.
+- Not yet verified: whether GP's Customizer picker UI displays a sane swatch
+  for a `var()` value that isn't one of its own recognized slugs, or shows
+  some "unrecognized" cosmetic state. Doesn't affect front-end output either
+  way (the injector is generic), but worth a hands-on check in the
+  Customizer before doing this for real.
