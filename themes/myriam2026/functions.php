@@ -278,8 +278,6 @@ function fm_clean_archive_title( $title ) {
 }
 add_filter( 'get_the_archive_title', 'fm_clean_archive_title' );
 
-
-
 /**
  * Replace GeneratePress footer credits in place (no unhooking needed).
  */
