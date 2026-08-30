@@ -440,3 +440,43 @@ cases (form input border, dropdown menu border) are folding into flat
 `--paper` for now, same as every other old-white use. `--paper-line` isn't
 introduced into `theme.json` yet. Revisit if/when those hairline cases
 should get their own distinct tone instead of flat paper.
+
+---
+
+## What `--flame` is replacing (2026-08-29) — open decision, not yet executed
+
+Unlike `ink`/`paper`, `--flame` doesn't map cleanly onto one old color.
+Two separate old colors currently do overlapping "loud attention" jobs:
+
+**`poppy-state-pink` (`#ed008e`, hot magenta):**
+- `_header.scss` — mobile `.menu-toggle` hover background
+- `_layouts.scss` — writing-archive byline link hover, `.entry-title a` hover
+- DB `accent` — drives GeneratePress's site-wide default link color
+  (`a { color: var(--accent) }`) — every plain `<a>` on the site is
+  currently this pink by default.
+
+**`poppy-yellow` (`#F2C60A`, bright yellow):**
+- `_footer.scss` / `_header.scss` — link hover colors, mobile menu button
+  background
+- `_student-portal.scss` — 7 separate uses (buttons, hover backgrounds,
+  borders)
+- DB `contrast-3` — GP's nav link text color
+
+Both are "look-at-me" CTA/hover/button colors — matching how the mockup
+describes `--flame`'s role ("the one accent — CTAs, hero quote, 'misprint'
+flourish"). `--teal` is documented as a *quieter* role ("secondary accent —
+eyebrow labels, link hover") that doesn't correspond to any existing UI
+element on the current site — it may be a genuinely new addition rather
+than a replacement for anything.
+
+**Open question, not yet decided:** does collapsing both pink and yellow
+into `--flame` alone match "one accent" branding (bigger visual change,
+two different hues become one), or should one of them move to `--teal`
+instead to preserve some two-tone distinction? Needs a decision before
+executing this swap.
+
+**Separately, not part of this token mapping:** the previously-flagged
+"orphan gray CTA button on a hot-pink section" defect (see top of this
+file) lives in actual page content (a Gutenberg block), not in theme
+code/theme.json — a content-level fix, unrelated to how `poppy-state-pink`
+gets remapped here.
