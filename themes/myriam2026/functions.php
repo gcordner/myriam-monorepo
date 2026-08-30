@@ -112,6 +112,37 @@ function remove_generatepress_default_fonts() {
 add_action( 'after_setup_theme', 'remove_generatepress_default_fonts', 10 );
 
 /**
+ * Strip WordPress core's own ~28 default colors so only our theme.json
+ * palette is ever available or output.
+ *
+ * `defaultPalette: false` in theme.json only hides these from the
+ * editor's "add new color" picker going forward — it doesn't stop core's
+ * baseline colors from still being merged in and emitted as
+ * --wp--preset--color--* custom properties everywhere else (confirmed:
+ * a stray "White" #ffffff was showing up once our own same-named "white"
+ * slug, which had been silently masking it, was removed). This empties
+ * core's own color settings at the source, before any merge happens.
+ *
+ * @return void
+ */
+function remove_core_default_color_palette() {
+	add_filter(
+		'wp_theme_json_data_default',
+		function ( $theme_json ) {
+			$data = $theme_json->get_data();
+
+			if ( isset( $data['settings']['color']['palette'] ) ) {
+				$data['settings']['color']['palette'] = array();
+			}
+
+			return new WP_Theme_JSON( $data );
+		},
+		10
+	);
+}
+add_action( 'after_setup_theme', 'remove_core_default_color_palette', 10 );
+
+/**
  * Remove page titles selectively for better design control.
  *
  * Removes automatic GeneratePress page titles on homepage and when
