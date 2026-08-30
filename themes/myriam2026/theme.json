@@ -11,9 +11,9 @@
           "name": "Poppy Yellow"
         },
         {
-          "slug": "poppy-state-pink",
-          "color": "#ed008e",
-          "name": "Poppy State Pink"
+          "slug": "flame",
+          "color": "#c8422a",
+          "name": "Flame"
         },
         {
           "slug": "black",
@@ -35,6 +35,16 @@
           "slug": "paper",
           "color": "#f3ece0",
           "name": "Paper"
+        },
+        {
+          "slug": "teal",
+          "color": "#1f6f78",
+          "name": "Teal"
+        },
+        {
+          "slug": "teal-dim",
+          "color": "#164e54",
+          "name": "Teal Dim"
         }
       ],
       "custom": true,
