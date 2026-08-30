@@ -63,6 +63,11 @@
           "fontFamily": "\"Big Shoulders\", serif",
           "slug": "big-shoulders",
           "name": "Big Shoulders"
+        },
+        {
+          "fontFamily": "\"Archivo\", sans-serif",
+          "slug": "archivo",
+          "name": "Archivo"
         }
       ],
       "theme": [],

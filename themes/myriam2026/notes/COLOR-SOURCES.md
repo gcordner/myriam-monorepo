@@ -480,3 +480,45 @@ executing this swap.
 file) lives in actual page content (a Gutenberg block), not in theme
 code/theme.json — a content-level fix, unrelated to how `poppy-state-pink`
 gets remapped here.
+
+---
+
+## The golden `bg-brand-secondary` background was intentional, not a bug (2026-08-29)
+
+While tracing the sitewide-yellow-background investigation (functions.php
+`add_post_type_archive_body_classes()` and `_layouts.scss`'s unscoped
+`body` rule, both discussed above), the two got conflated and the
+`bg-brand-secondary` function was removed along with the real bug. A
+before/after screenshot comparison of `/writing/`
+(`redesign-2026/writing-old.png` = production, `writing-new.png` = local
+post-fix) showed this was a mistake: production's `/writing/` genuinely
+does carry `archive-writing bg-brand-secondary` in its body class, and the
+resulting full-bleed golden background is a deliberate, effective design
+choice — a cohesive, poster-like graphic treatment that suits the page's
+content (protest/political imagery, ICE/immigration writing pieces), not
+random leftover color rotation. Removing it made the page read as
+noticeably more generic/"professional blog," losing that identity.
+
+**The actual bug was narrower than first thought:** only the unscoped
+`body { background-color: theme-values.$poppy-yellow; }` rule in
+`_layouts.scss` (no class qualifier — applied to every page sitewide) was
+wrong. That rule stays removed. `bg-brand-secondary` and the function that
+applies it were restored (commit reverted).
+
+**Why a PHP function instead of hardcoding a class in `archive-writing.php`
+directly:** the `<body>` tag itself lives in `header.php`, which
+`myriam2026` doesn't own (inherits GeneratePress's) — `archive-writing.php`
+just calls `get_header()`. WordPress's `body_class` filter is the standard
+way to conditionally add classes to `<body>` without forking the parent
+theme's header.php. Confirmed this is also the *right* architecture (not
+just a workaround) once we learned **multiple pages** use
+`bg-brand-secondary` in production, not just `/writing/`: a single function
+listing every page that gets the golden treatment is one place to read and
+edit, versus hand-adding a wrapper class to N separate template files.
+
+**Not yet done:** a full production survey of exactly which pages/
+templates carry `bg-brand-secondary` (started, interrupted mid-check) —
+`add_post_type_archive_body_classes()` currently only covers
+`is_post_type_archive('writing')`. Need that full list before deciding
+whether the function's conditions should be extended to cover other
+golden pages too.

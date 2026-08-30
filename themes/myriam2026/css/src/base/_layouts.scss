@@ -1,12 +1,6 @@
 @use 'theme-values';
 @use 'mixins';
 
-
-body {
-    background-color: theme-values.$poppy-yellow;
-
-}
-
 // Page structure overrides
 #page {
     .page-header {
