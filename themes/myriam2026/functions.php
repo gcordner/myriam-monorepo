@@ -279,20 +279,6 @@ function fm_clean_archive_title( $title ) {
 add_filter( 'get_the_archive_title', 'fm_clean_archive_title' );
 
 
-/**
-* Add custom CSS classes to body element on post type archive pages.
-*
-* @param array $classes Existing body classes.
-* @return array Modified body classes array.
-*/
-function add_post_type_archive_body_classes($classes) {
-   if (is_post_type_archive('writing')) {
-       $classes[] = 'archive-writing';
-       $classes[] = 'bg-brand-secondary'; // Semantic, won't break.
-   }
-   return $classes;
-}
-add_filter('body_class', 'add_post_type_archive_body_classes');
 
 /**
  * Replace GeneratePress footer credits in place (no unhooking needed).
