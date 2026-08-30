@@ -43,25 +43,13 @@ add_action(
 	20
 );
 
-// Enqueue editor assets (makes Gutenberg match frontend).
+// Enqueue editor JS (makes Gutenberg match frontend).
 add_action(
 	'enqueue_block_editor_assets',
 	function () {
 		$theme_dir = get_stylesheet_directory();
 		$theme_uri = get_stylesheet_directory_uri();
 
-		// Enqueue editor CSS.
-		$css_files = glob( $theme_dir . '/css/build/theme.min.*.css' );
-		if ( ! empty( $css_files ) ) {
-			wp_enqueue_style(
-				'myriam2026-editor-styles',
-				$theme_uri . '/css/build/' . basename( $css_files[0] ),
-				array(),
-				filemtime( $css_files[0] )
-			);
-		}
-
-		// Enqueue editor JS.
 		$js_files = glob( $theme_dir . '/js/build/main.min.*.js' );
 		if ( ! empty( $js_files ) ) {
 			wp_enqueue_script(
@@ -74,6 +62,24 @@ add_action(
 		}
 	}
 );
+
+/**
+ * Register editor styles via the real editor-styles API so WordPress
+ * rewrites `body` to `.editor-styles-wrapper` for us (a plain enqueue
+ * doesn't get that rewrite, which is why fonts/colors weren't showing
+ * in the block editor).
+ *
+ * @return void
+ */
+function myriam2026_add_editor_styles() {
+	add_theme_support( 'editor-styles' );
+
+	$css_files = glob( get_stylesheet_directory() . '/css/build/theme.min.*.css' );
+	if ( ! empty( $css_files ) ) {
+		add_editor_style( 'css/build/' . basename( $css_files[0] ) );
+	}
+}
+add_action( 'after_setup_theme', 'myriam2026_add_editor_styles' );
 
 /**
  * Remove GeneratePress default fonts and use theme.json fonts

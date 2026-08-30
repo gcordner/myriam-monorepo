@@ -50,11 +50,6 @@
       "defaultFontSizes": false,
       "fontFamilies": [
         {
-          "fontFamily": "\"Montserrat\", sans-serif",
-          "slug": "montserrat",
-          "name": "Montserrat"
-        },
-        {
           "fontFamily": "\"Bebas Neue\", cursive",
           "slug": "bebas-neue",
           "name": "Bebas Neue"
@@ -68,6 +63,11 @@
           "fontFamily": "\"Archivo\", sans-serif",
           "slug": "archivo",
           "name": "Archivo"
+        },
+        {
+          "fontFamily": "\"Fraunces\", serif",
+          "slug": "fraunces",
+          "name": "Fraunces"
         }
       ],
       "theme": [],
@@ -122,7 +122,7 @@
   },
   "styles": {
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--montserrat)"
+      "fontFamily": "var(--wp--preset--font-family--fraunces)"
     },
     "elements": {
       "h1": {

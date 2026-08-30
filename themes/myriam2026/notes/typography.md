@@ -196,3 +196,68 @@ component CSS, which ignores it entirely. There's one already-latent break
 (`Big Shoulders` vs `Big Shoulders Display`) sitting unused, one stale
 GP Customizer value contradicting the real rendered site-title size, and
 one fully unused font family (Albert Sans) shipped for no active reason.
+
+---
+
+## Redesign type system implemented (2026-08-30)
+
+Three fonts wired up and applied, replacing the old system:
+
+- **Bebas Neue** — display, unchanged (site title only, per role).
+- **Archivo** — new utility sans (nav, captions, labels, buttons, form UI,
+  footer). Self-hosted: `theme.json`, `_fonts.scss` `@font-face`,
+  `css/src/fonts/Archivo/` (variable font only — the `static/` weight
+  folder Google Fonts ships was deleted as unused dead weight; `OFL.txt`
+  kept for license reference, `README.txt` is just descriptive metadata,
+  not a license, kept for now).
+- **Fraunces** — new body/serif default (`body` in `_typography.scss`,
+  theme.json's root `styles.typography.fontFamily`). Same self-hosting
+  pattern as Archivo, `css/src/fonts/Fraunces/`.
+- **Montserrat** — fully retired (theme.json entry, `@font-face`, and
+  build output all removed) after confirming zero remaining references,
+  including one real published-content use on the homepage (a review
+  blurb pinned to Montserrat via the block editor's font picker) that
+  had to be manually re-picked to a different font first, since it was
+  invisible as a mismatch before the base font changed away from
+  Montserrat itself.
+
+**Mapping note:** Montserrat wasn't a single role — splitting its old
+usages required judgment, not a mechanical rename. Only the base `body`
+rule became Fraunces; everything else that was Montserrat (writing-archive
+byline date, and nine separate student-portal uses — badges, nav-style
+buttons, form labels/fields, a login error message, small captions)
+became Archivo instead, since those are all short UI chrome/labels, not
+reading prose — matching the original plan's split between "serif body/
+subtitles/quiet text" and "utility sans nav/labels/captions/footer."
+
+## Block editor doesn't show custom fonts — partially addressed, not confirmed fixed
+
+The block editor was rendering everything in system-ui instead of the
+new fonts, unrelated to whether the fonts work on the front end (which
+they do, confirmed). Root cause: `functions.php`'s
+`enqueue_block_editor_assets` hook did a raw `wp_enqueue_style()` of the
+compiled CSS into the editor, bypassing WordPress's real editor-styles
+API. `add_editor_style()` (the supported mechanism) automatically
+rewrites a `body` selector to `.editor-styles-wrapper` when injecting
+into the editor's iframe — a plain enqueue doesn't get that rewrite, so
+`body { font-family: Fraunces }` wasn't matching anything with enough
+specificity inside the iframe.
+
+**Fix applied:** switched to `add_theme_support('editor-styles')` +
+`add_editor_style()`, resolving the current hashed build filename via
+the same `glob()` pattern already used elsewhere in `functions.php`
+(new function `myriam2026_add_editor_styles()`, hooked to
+`after_setup_theme`). Confirmed server-side via `wp eval` that
+`current_theme_supports('editor-styles')` is true and the correct
+compiled CSS file (containing the real `body{font-family:Fraunces,serif}`
+rule) is registered in `$editor_styles`.
+
+**Not yet confirmed working.** After the fix, fonts still weren't
+showing in the editor; a log-out/log-in was tried as a next step but
+the result wasn't confirmed before moving on. This has no effect on the
+front end either way (purely an editor-authoring-experience issue, not
+a performance or visitor-facing concern) — deprioritized in favor of
+front-end typography work, but circle back and verify with browser
+DevTools (inspect the editor iframe's `<head>` for the injected
+stylesheet, and its Network tab for whether the font files actually
+load) if it's still broken next time this is picked up.
