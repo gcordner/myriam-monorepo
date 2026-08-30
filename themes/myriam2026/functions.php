@@ -143,6 +143,70 @@ function remove_core_default_color_palette() {
 add_action( 'after_setup_theme', 'remove_core_default_color_palette', 10 );
 
 /**
+ * Reject any GeneratePress Global Color slug that isn't one of our
+ * known theme.json aliases.
+ *
+ * Global Colors are meant to be a fixed set of aliases pointing at
+ * theme.json (see remove_core_default_color_palette() above and
+ * notes/COLOR-SOURCES.md) — not a second place to author colors
+ * directly. This blocks the Customizer save with a visible error if an
+ * unrecognized slug is submitted, rather than silently stripping it —
+ * silently stripping would let the save appear to succeed in the
+ * Customizer's own UI state, only to quietly vanish on the next reload,
+ * which is worse than just failing loudly.
+ *
+ * Update $allowed_slugs here whenever a new alias slot is deliberately
+ * added (add the color to theme.json first, then alias a slot to it).
+ *
+ * @return void
+ */
+function myriam2026_lock_global_colors_whitelist() {
+	add_filter(
+		'customize_validate_generate_settings[global_colors]',
+		function ( $validity, $value ) {
+			$allowed_slugs = array( 'contrast', 'contrast-2', 'contrast-3', 'base', 'base-2', 'base-3', 'accent', 'dark-brick' );
+
+			if ( is_array( $value ) ) {
+				foreach ( $value as $entry ) {
+					if ( empty( $entry['slug'] ) || ! in_array( $entry['slug'], $allowed_slugs, true ) ) {
+						$validity->add(
+							'global_colors_locked',
+							__( "New Global Colors can't be added here — add the color to theme.json first, then update the alias whitelist in functions.php.", 'myriam2026' )
+						);
+						break;
+					}
+				}
+			}
+
+			return $validity;
+		},
+		10,
+		2
+	);
+}
+add_action( 'customize_register', 'myriam2026_lock_global_colors_whitelist' );
+
+/**
+ * Hide GeneratePress's "Add Global Color" button in the Customizer UI,
+ * so the temptation to add a color there doesn't come up in normal use.
+ * The validation above is the real enforcement — this just removes the
+ * affordance. Selector confirmed via DevTools against the actual
+ * rendered button: <button class="components-button
+ * generate-color-manager--add-color">.
+ *
+ * @return void
+ */
+function myriam2026_hide_add_global_color_button() {
+	add_action(
+		'customize_controls_print_styles',
+		function () {
+			echo '<style>.generate-color-manager--add-color { display: none !important; }</style>';
+		}
+	);
+}
+add_action( 'customize_register', 'myriam2026_hide_add_global_color_button' );
+
+/**
  * Remove page titles selectively for better design control.
  *
  * Removes automatic GeneratePress page titles on homepage and when
