@@ -13,7 +13,7 @@
 	font-family: 'Bebas Neue', cursive;
 	font-size: clamp(3rem, 8vw, 5rem);
 	font-style: italic;
-	color: $dark_teal;
+	color: $ink;
 	margin: 0;
 	line-height: 1;
 }
@@ -39,8 +39,8 @@
 	flex-direction: column;
 	gap: 0.35rem;
 	padding: 1.5rem;
-	background: $dark_teal;
-	color: $white;
+	background: $ink;
+	color: $paper;
 	text-decoration: none;
 	transition: background 0.2s ease, color 0.2s ease;
 
@@ -125,7 +125,7 @@ body.single-class_week {
 	font-family: 'Bebas Neue', cursive;
 	font-size: 1rem;
 	letter-spacing: 0.18em;
-	color: $dark_teal;
+	color: $ink;
 	margin: 0 0 0.3rem;
 	text-transform: uppercase;
 }
@@ -134,7 +134,7 @@ body.single-class_week {
 	font-family: 'Bebas Neue', cursive;
 	font-size: clamp(2rem, 6vw, 3.5rem);
 	font-style: italic;
-	color: $dark_teal;
+	color: $ink;
 	margin: 0;
 	text-align: center;
 }
@@ -154,8 +154,8 @@ body.single-class_week {
 	text-transform: uppercase;
 	text-decoration: none;
 	padding: 0.4rem 1rem;
-	border: 2px solid $dark_teal;
-	color: $dark_teal;
+	border: 2px solid $ink;
+	color: $ink;
 	transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 
 	&:hover,
@@ -170,14 +170,14 @@ body.single-class_week {
 .week-section {
 	margin-bottom: 3rem;
 	padding-top: 1.5rem;
-	border-top: 2px solid $not_quite_white;
+	border-top: 2px solid $paper;
 }
 
 .week-section__title {
 	font-family: 'Bebas Neue', cursive;
 	font-size: 1.6rem;
 	letter-spacing: 0.04em;
-	color: $dark_teal;
+	color: $ink;
 	text-align: left;
 	margin-bottom: 1.25rem;
 }
@@ -210,8 +210,8 @@ body.single-class_week {
 	text-transform: uppercase;
 	text-decoration: none;
 	padding: 0.75rem 1.5rem;
-	background: $dark_teal;
-	color: $white;
+	background: $ink;
+	color: $paper;
 	transition: background 0.15s ease, color 0.15s ease;
 
 	&:hover,
@@ -260,7 +260,7 @@ body.single-class_week {
 .login-card {
 	width: 100%;
 	max-width: 420px;
-	background: $white;
+	background: $paper;
 	padding: 2.5rem;
 	border-top: 4px solid $poppy_yellow;
 	box-shadow: 0 4px 28px rgba(0, 0, 0, 0.1);
@@ -270,7 +270,7 @@ body.single-class_week {
 	text-align: center;
 	margin-bottom: 1.75rem;
 	padding-bottom: 1.25rem;
-	border-bottom: 1px solid $not_quite_white;
+	border-bottom: 1px solid $paper;
 }
 
 .login-card__class-name {
@@ -278,7 +278,7 @@ body.single-class_week {
 	font-family: 'Bebas Neue', cursive;
 	font-size: 2.75rem;
 	font-style: italic;
-	color: $dark_teal;
+	color: $ink;
 	line-height: 1;
 }
 
@@ -314,7 +314,7 @@ body.single-class_week {
 		font-weight: 700;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: $dark_teal;
+		color: $ink;
 		margin-bottom: 0.35rem;
 	}
 
@@ -332,7 +332,7 @@ body.single-class_week {
 
 		&:focus {
 			outline: none;
-			border-color: $dark_teal;
+			border-color: $ink;
 		}
 	}
 
@@ -385,7 +385,7 @@ body.single-class_week {
 		text-decoration: none;
 
 		&:hover {
-			color: $dark_teal;
+			color: $ink;
 		}
 	}
 }

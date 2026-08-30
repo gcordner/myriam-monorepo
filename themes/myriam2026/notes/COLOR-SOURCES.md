@@ -390,3 +390,53 @@ theme.json as a real color or stays a literal hex in that one slot.
   some "unrecognized" cosmetic state. Doesn't affect front-end output either
   way (the injector is generic), but worth a hands-on check in the
   Customizer before doing this for real.
+
+---
+
+## Operational gotcha found during the actual swap (2026-08-29)
+
+While renaming `burnt-sienna` → `ink` (first real palette-swap step, header/
+footer unification), editing `generate_settings.global_colors` directly via
+`wp option update` (wp-cli, bypassing the Customizer UI) did **not** trigger
+GeneratePress to regenerate its compiled CSS cache, stored separately in the
+`generate_dynamic_css_output` option. The DB value was correct immediately,
+but the live site kept serving the old resolved hex until that cache option
+was manually cleared.
+
+This went unnoticed on the very first consolidation pass (aliasing all 8
+colors to `var(--wp--preset--color--*)`) purely by luck — none of those
+color's actual hex values changed that time, only their representation
+(literal hex → var reference), so a stale cache looked identical either way.
+It became visible only once a real hex value changed (burnt-sienna's
+`#261404` → ink's `#141110`) and the live page kept showing the old brown.
+
+**Required step, every time `generate_settings` is edited via wp-cli/script
+(not the Customizer UI) going forward:**
+```
+fin wp option delete generate_dynamic_css_output
+```
+This forces GP to regenerate on the next page load. Confirmed after doing
+this that GP regenerates by storing the live `var(--wp--preset--color--*)`
+reference itself (not a re-baked hex) — so this is a one-time fix per edit,
+not something that needs repeating on every subsequent theme.json change to
+that same color.
+
+---
+
+## `--paper-line` deferred (2026-08-29)
+
+While mapping `white`/`not-quite-white`/`pure-white` onto the new `--paper`
+token, one wrinkle: `not-quite-white`'s DB role as a form-input **border**
+color, and `_header.scss`'s dropdown-menu border, are really hairline/
+divider uses, not flat background or text uses. The mockup has a dedicated
+third token for exactly that: `--paper-line` (`#cfc0a4`) — a muted warm tan,
+noticeably darker/more saturated than `--paper` (`#f3ece0`) or `--paper-soft`
+(`#e7dcc7`), used in the mockup only for thin structural rules (the trailing
+line after section labels, the blockquote left-border) — never a fill or
+text color.
+
+**Decision: leaving `--paper-line` out of this pass.** The border/divider
+cases (form input border, dropdown menu border) are folding into flat
+`--paper` for now, same as every other old-white use. `--paper-line` isn't
+introduced into `theme.json` yet. Revisit if/when those hairline cases
+should get their own distinct tone instead of flat paper.

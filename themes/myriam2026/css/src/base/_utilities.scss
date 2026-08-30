@@ -15,18 +15,18 @@
 
 .white-link {
     a {
-        color: theme-values.$not_quite_white !important;
+        color: theme-values.$paper !important;
         text-decoration: none !important;
 
         &:hover {
-            color: darken(theme-values.$not_quite_white, 20%) !important;
+            color: darken(theme-values.$paper, 20%) !important;
         }
     }
 }
 
 .dark-teal-link {
     a {
-        color: var(--wp--preset--color--dark-teal) !important;
+        color: var(--wp--preset--color--ink) !important;
         text-decoration: none !important;
     }
 }
@@ -34,7 +34,7 @@
 // Color utilities based on theme.json values
 // Stable utility classes that won't break
 .bg-brand-primary {
-    background-color: theme-values.$burnt-sienna;
+    background-color: theme-values.$ink;
 }
 
 .bg-brand-secondary {
@@ -42,7 +42,7 @@
 }
 
 .bg-neutral-light {
-    background-color: theme-values.$not-quite-white;
+    background-color: theme-values.$paper;
 }
 
 .has-text-align-left {

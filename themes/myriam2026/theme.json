@@ -16,19 +16,14 @@
           "name": "Poppy State Pink"
         },
         {
-          "slug": "dark-teal",
-          "color": "#0b2225",
-          "name": "Dark Teal"
-        },
-        {
           "slug": "black",
           "color": "#000000",
           "name": "Black"
         },
         {
-          "slug": "burnt-sienna",
-          "color": "#261404",
-          "name": "Burnt Sienna"
+          "slug": "ink",
+          "color": "#141110",
+          "name": "Ink"
         },
 
         {
@@ -37,19 +32,9 @@
           "name": "Dark Brick"
         },
         {
-          "slug": "white",
-          "color": "#FAFBFC",
-          "name": "White"
-        },
-        {
-          "slug": "not-quite-white",
-          "color": "#F2F2F2",
-          "name": "Not Quite White"
-        },
-        {
-          "slug": "pure-white",
-          "color": "#ffffff",
-          "name": "Pure White"
+          "slug": "paper",
+          "color": "#f3ece0",
+          "name": "Paper"
         }
       ],
       "custom": true,

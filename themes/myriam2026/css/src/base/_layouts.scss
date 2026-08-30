@@ -45,7 +45,7 @@ body {
 
         p {
             font-family: "Big Shoulders Display", Arial, Helvetica, sans-serif;
-            color: theme-values.$burnt_sienna;
+            color: theme-values.$ink;
             letter-spacing: 2px;
             font-weight: 700;
             font-size: 1rem;
@@ -54,7 +54,7 @@ body {
         }
 
         a {
-            color: theme-values.$dark_teal;
+            color: theme-values.$ink;
             text-decoration: none;
             font-weight: 600;
 
@@ -65,7 +65,7 @@ body {
         }
 
         .date {
-            color: theme-values.$dark_teal;
+            color: theme-values.$ink;
             font-family: "Montserrat", Arial, Helvetica, sans-serif;
             font-weight: 400;
             font-size: 0.875rem;
@@ -73,7 +73,7 @@ body {
     }
 
     .entry-title a {
-        color: theme-values.$dark_teal; // Use consistent variable
+        color: theme-values.$ink; // Use consistent variable
         text-decoration: none;
 
         &:hover {
@@ -90,12 +90,12 @@ body {
     }
 
     .tags a {
-        color: theme-values.$not_quite_white;
+        color: theme-values.$paper;
         text-transform: lowercase;
         text-decoration: none;
         font-size: 0.8rem;
         letter-spacing: 2px;
-        background-color: theme-values.$burnt_sienna;
+        background-color: theme-values.$ink;
         padding: 2px 7px 4px 7px;
 
         &:hover {

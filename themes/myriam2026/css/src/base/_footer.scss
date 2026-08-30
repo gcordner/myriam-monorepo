@@ -3,14 +3,14 @@
 @use 'utilities';
 
 .site-footer {
-    background-color: var(--wp--preset--color--dark-brick);
-    color: var(--wp--preset--color--not-quite-white);
+    background-color: var(--wp--preset--color--ink);
+    color: var(--wp--preset--color--paper);
     padding-block: var(--wp--preset--spacing--25, 1.25rem);
     font-size: 0.875rem;
     text-align: center;
 
     a {
-        color: var(--wp--preset--color--white);
+        color: var(--wp--preset--color--paper);
 
         &:hover {
             color: var(--wp--preset--color--poppy-yellow);
