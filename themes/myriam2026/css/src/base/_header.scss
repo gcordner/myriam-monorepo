@@ -41,25 +41,50 @@
     font-family: var(--wp--preset--font-family--bebas-neue);
     // font-style: italic;
     font-weight: 400;
-    font-size: 3rem;
+    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
     margin: 0;
 
     a {
-        color: var(--wp--preset--color--poppy-yellow);
+        color: var(--wp--preset--color--paper);
         text-decoration: none;
 
         &:hover {
-            color: var(--wp--preset--color--paper);
+            color: var(--wp--preset--color--flame);
         }
     }
 }
 
 // Style the navigation menu
+//
+// The selectors below intentionally mirror GeneratePress's own
+// main.min.css selectors (not just `.main-navigation a`), so our rules
+// win via normal cascade order (our stylesheet loads after GP's, per
+// the 'parent-style' dependency in functions.php) rather than needing
+// !important. GP's nav markup is long-stable and depended on by a huge
+// child-theme ecosystem, so this is a safe bet — but if a future GP
+// update ever changes these exact selectors, this would need revisiting.
+.main-navigation .main-nav ul li a,
+.main-navigation .menu-toggle,
+.main-navigation .menu-bar-items {
+    color: var(--wp--preset--color--paper);
+}
+
+button.menu-toggle:hover,
+button.menu-toggle:focus {
+    color: var(--wp--preset--color--paper);
+}
+
+.main-navigation .main-nav ul ul li a {
+    color: var(--wp--preset--color--paper);
+    font-size: 0.78rem;
+}
+
 .main-navigation {
     a {
         font-family: var(--wp--preset--font-family--archivo);
-        font-weight: 500;
-        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 0.78rem;
+        letter-spacing: 0.11em;
     }
 
     //     .main-nav ul {
