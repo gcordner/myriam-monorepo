@@ -30,8 +30,14 @@
 
 @media (min-width: 768px) {
     .inside-header {
-        /* ≥768px: top/bottom 1.25rem; left/right 0 */
-        padding-block: var(--wp--preset--spacing--25, 1.25rem); // add token "25" later if you want
+        // Nav links already have a 60px line-height (GP's own click-
+        // target sizing) — this padding used to stack on top of that
+        // full height instead of just giving it a little breathing
+        // room, which is what was making the header much taller than
+        // the mockup. Kept small on purpose rather than removed
+        // entirely, since the 60px line-height already IS the click
+        // target; this only pads around it.
+        padding-block: 0.25rem;
     }
 }
 
