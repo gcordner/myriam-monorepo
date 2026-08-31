@@ -13,23 +13,19 @@
     transition: all 0.3s ease;
 }
 
-// Add top margin to compensate for sticky header
-// body {
-//     padding-top: 80px; // Adjust based on your header height
-// }
-
 // Style the header container
-
 .inside-header {
     align-items: center;
 
-    /* Mobile: top/bottom 0; left/right 0.75rem */
+    /* Mobile: top/bottom 0; left/right 0.75rem.
+       mobile-padding() also resets left/right to 0 at 768px+ internally
+       (see _mixins.scss) — nested alongside our own block-padding
+       breakpoint below so this element's full responsive behavior
+       lives in one place instead of two separate media queries. */
     padding-block: 0;
     @include mixins.mobile-padding(var(--wp--preset--spacing--20, 0.75rem), 768px);
-}
 
-@media (min-width: 768px) {
-    .inside-header {
+    @media (min-width: 768px) {
         // Nav links already have a 60px line-height (GP's own click-
         // target sizing) — this padding used to stack on top of that
         // full height instead of just giving it a little breathing
@@ -112,26 +108,6 @@ button.menu-toggle:focus {
         font-size: 0.78rem;
         letter-spacing: 0.11em;
     }
-
-    //     .main-nav ul {
-    //         display: flex;
-    //         gap: 2rem;
-    //         margin: 0;
-    //         padding: 0;
-    //         list-style: none;
-
-    //         li a {
-    //             color: var(--wp--preset--color--white);
-    //             text-decoration: none;
-    //             font-weight: 500;
-    //             padding: 0.5rem 0;
-    //             transition: color 0.3s ease;
-
-    //             &:hover {
-    //                 color: var(--wp--preset--color--poppy-yellow);
-    //             }
-    //         }
-    //     }
 }
 
 // Style dropdowns
