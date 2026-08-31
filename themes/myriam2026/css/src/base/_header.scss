@@ -96,6 +96,90 @@ button.menu-toggle:focus {
     color: var(--wp--preset--color--paper);
 }
 
+// Replace GP's default chevron with a simple +/x indicator, and undo
+// float:right (which kept it snug next to the text on desktop's
+// narrow, content-width nav items, but pushed it to the far edge of
+// the screen on mobile's full-width menu items). Un-floating lets it
+// sit inline right after the label in both contexts. Hides the SVG
+// rather than removing the markup, so GP's aria/JS wiring on the
+// element itself is untouched.
+// Matches GP's own selector specificity so these overrides actually
+// win the cascade instead of losing to GP's padding-left/float rules.
+.menu-item-has-children .dropdown-menu-toggle {
+    float: none;
+    display: inline-flex;
+    align-items: center;
+    height: auto;
+    margin: 0 0 0 0.2rem;
+    padding: 0;
+
+    .gp-icon.icon-arrow {
+        position: relative;
+        display: inline-block;
+        width: 0.6em;
+        height: 0.6em;
+        margin-right: 0;
+        opacity: 1;
+        transition: transform 0.15s ease;
+
+        svg {
+            display: none;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: var(--wp--preset--color--paper);
+            transition: background-color 0.15s ease;
+        }
+
+        &::before {
+            width: 100%;
+            height: 2px;
+            transform: translate(-50%, -50%);
+        }
+
+        &::after {
+            width: 2px;
+            height: 100%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+
+// Give the +/x the same right-side breathing room as the other nav
+// items get (desktop only — mobile's full-width rows don't need it).
+@media (min-width: 768px) {
+    .menu-item-has-children .dropdown-menu-toggle {
+        padding-right: 15px;
+    }
+}
+
+// GP has a second, more specific float:right for the mobile "menu open"
+// state (.toggled) that the rule above doesn't reach — match its exact
+// selector (including .main-navigation) so this override wins too.
+.main-navigation.toggled .menu-item-has-children .dropdown-menu-toggle {
+    float: none;
+}
+
+// Rotate + into x when the submenu is open — .sfHover is the same
+// class GP's own JS toggles to trigger its default chevron rotation.
+.menu-item-has-children.sfHover > a > .dropdown-menu-toggle .gp-icon.icon-arrow {
+    transform: rotate(45deg);
+}
+
+// Match the flame-on-hover treatment already used for nav link text.
+.main-navigation .main-nav ul li a:hover .dropdown-menu-toggle .gp-icon.icon-arrow,
+.main-navigation .main-nav ul li a:focus-visible .dropdown-menu-toggle .gp-icon.icon-arrow {
+    &::before,
+    &::after {
+        background: var(--wp--preset--color--flame);
+    }
+}
+
 .main-navigation .main-nav ul ul li a {
     color: var(--wp--preset--color--paper);
     font-size: 0.78rem;
