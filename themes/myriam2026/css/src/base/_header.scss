@@ -69,6 +69,26 @@
     color: var(--wp--preset--color--paper);
 }
 
+// Flame underline on hover/active, matching the mockup. Using
+// text-decoration rather than border-bottom on purpose: GP's own rule
+// gives these links padding-left/right:20px and line-height:60px for a
+// large click target, so a border-bottom (which spans that full padded,
+// tall box) rendered much wider than the text and far below it.
+// text-decoration only ever spans the actual text run and sits a fixed
+// offset below the baseline, unaffected by the link's padding/line-height.
+.main-navigation .main-nav ul li a {
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration-color: var(--wp--preset--color--flame);
+    }
+}
+
 button.menu-toggle:hover,
 button.menu-toggle:focus {
     color: var(--wp--preset--color--paper);
