@@ -20,22 +20,40 @@
 
 // GP sets font-size directly on .site-info (not just .site-footer), and a
 // direct match always wins over an inherited value regardless of
-// specificity — so the size has to be set here, not on the ancestor.
-// 15px matches .main-navigation's own font-size (see _header.scss).
+// specificity — so overrides need to target .site-info itself.
 .site-info {
     font-size: .78rem;
 
     .copyright-bar {
         display: block;
-        margin-block-start: 1em;
-        margin-block-end: 1em;
-        margin-inline-start: 0px;
-        margin-inline-end: 0px;
-        color: #8a8074;
+        margin-block: 1em;
+        margin-inline: 0;
+        color: var(--wp--preset--color--taupe);
 
         a {
-            color: #8a8074;
+            color: var(--wp--preset--color--taupe);
             text-decoration: none;
+
+            &:hover,
+            &:focus-visible {
+                color: var(--wp--preset--color--flame);
+            }
         }
     }
+}
+
+// Core's Social Links block (not a plugin), icon color set via the
+// block editor to #FAFBFC — rendered as an inline `color` on each <li>,
+// inherited by the <svg> through `fill: currentColor`. Core's own CSS
+// re-applies `color: currentColor` on :hover/:active/:visited too (to
+// keep the icon color stable across states), at 5-class specificity, so
+// beating it on hover requires matching that same selector and adding
+// .site-footer to win outright rather than relying on source order.
+.site-footer .wp-block-social-link-anchor {
+    transition: color 0.15s ease;
+}
+
+.site-footer .wp-block-social-links .wp-block-social-link.wp-social-link .wp-block-social-link-anchor:hover,
+.site-footer .wp-block-social-links .wp-block-social-link.wp-social-link .wp-block-social-link-anchor:focus-visible {
+    color: var(--wp--preset--color--flame);
 }

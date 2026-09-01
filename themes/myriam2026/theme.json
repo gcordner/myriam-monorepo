@@ -45,6 +45,11 @@
           "slug": "teal-dim",
           "color": "#164e54",
           "name": "Teal Dim"
+        },
+        {
+          "slug": "taupe",
+          "color": "#8a8074",
+          "name": "Taupe"
         }
       ],
       "custom": true,
