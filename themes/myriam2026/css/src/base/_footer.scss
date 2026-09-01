@@ -6,7 +6,7 @@
     background-color: var(--wp--preset--color--ink);
     color: var(--wp--preset--color--paper);
     padding-block: var(--wp--preset--spacing--25, 1.25rem);
-    font-size: 0.875rem;
+    font-family: var(--wp--preset--font-family--archivo);
     text-align: center;
 
     a {
@@ -14,6 +14,28 @@
 
         &:hover {
             color: var(--wp--preset--color--poppy-yellow);
+        }
+    }
+}
+
+// GP sets font-size directly on .site-info (not just .site-footer), and a
+// direct match always wins over an inherited value regardless of
+// specificity — so the size has to be set here, not on the ancestor.
+// 15px matches .main-navigation's own font-size (see _header.scss).
+.site-info {
+    font-size: .78rem;
+
+    .copyright-bar {
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        color: #8a8074;
+
+        a {
+            color: #8a8074;
+            text-decoration: none;
         }
     }
 }
