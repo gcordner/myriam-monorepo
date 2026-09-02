@@ -1,0 +1,164 @@
+@use 'variables';
+@use 'mixins';
+
+// Homepage "Upcoming Events" block (myriam2026/upcoming-events). Scoped
+// under .upcoming-events throughout on purpose — the live archive page
+// already has its own, unrelated .event-card/.events-grid in
+// _events.scss, and this avoids colliding with it (see notes/events.md).
+//
+// Mobile-first, matching this codebase's convention elsewhere (see
+// _book.scss): base rules are the mobile layout, desktop overrides live
+// inside mixins.up(variables.$bp-md).
+.upcoming-events {
+    background-color: var(--wp--preset--color--teal-deep);
+    background-image: radial-gradient(rgba(0, 0, 0, .18) 0.6px, transparent 0.6px);
+    background-size: 10px 10px;
+    padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+
+    &-inner {
+        max-width: 72rem;
+        margin-inline: auto;
+    }
+
+    .section-label {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 0 0 2.25rem;
+        font-family: var(--wp--preset--font-family--archivo);
+        font-size: .85rem;
+        font-weight: 700;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: #e7dcc7;
+
+        &::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #3a322c;
+        }
+    }
+
+    .event-when {
+        display: block;
+        margin: 0 0 .3rem;
+        font-family: var(--wp--preset--font-family--archivo);
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #5fb3ba;
+
+        .sep {
+            margin: 0 .5em;
+            opacity: .45;
+        }
+    }
+
+    .event-solo {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: center;
+
+        @include mixins.up(variables.$bp-md) {
+            grid-template-columns: minmax(220px, 300px) 1fr;
+            gap: clamp(2rem, 5vw, 4.5rem);
+        }
+    }
+
+    .pinned-cover {
+        position: relative;
+        max-width: 280px;
+        margin-inline: auto;
+        transform: rotate(-2.2deg);
+
+        @include mixins.up(variables.$bp-md) {
+            max-width: none;
+            margin-inline: 0;
+        }
+
+        img {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            border: 1px solid rgba(0, 0, 0, .08);
+            box-shadow: 0 22px 40px -14px rgba(0, 0, 0, .45), 0 2px 0 rgba(0, 0, 0, .06);
+        }
+
+        .pin {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            transform: translateX(-50%);
+            border-radius: 50%;
+            background: radial-gradient(circle at 32% 30%, #e8836b, var(--wp--preset--color--flame) 60%, #a1341f);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, .35);
+        }
+    }
+
+    .event-body {
+        h3 {
+            margin: .8rem 0 .2rem;
+            font-family: var(--wp--preset--font-family--fraunces);
+            font-weight: 600;
+            font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+            line-height: 1.15;
+            color: var(--wp--preset--color--paper);
+            text-wrap: balance;
+        }
+
+        .event-subtitle {
+            margin: 0 0 .8rem;
+            font-family: var(--wp--preset--font-family--fraunces);
+            font-style: italic;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            color: #c9bfae;
+        }
+
+        .event-desc {
+            max-width: 36rem;
+            margin: 0 0 1.3rem;
+            font-family: var(--wp--preset--font-family--fraunces);
+            font-size: .98rem;
+            line-height: 1.6;
+            color: #c9bfae;
+
+            p {
+                margin: 0 0 1em;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .stamp-btn {
+        display: inline-block;
+        margin-top: 1.4rem;
+        padding: .62em 1.5em;
+        font-family: var(--wp--preset--font-family--archivo);
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: 1.5px solid var(--wp--preset--color--flame);
+        transition: background .15s, color .15s;
+
+        &.on-teal-deep {
+            background: var(--wp--preset--color--flame);
+            color: var(--wp--preset--color--paper);
+            box-shadow: 0 0 0 3px var(--wp--preset--color--teal-deep), 0 0 0 4.5px var(--wp--preset--color--flame);
+
+            &:hover,
+            &:focus-visible {
+                color: var(--wp--preset--color--ink);
+            }
+        }
+    }
+}

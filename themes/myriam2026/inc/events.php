@@ -141,3 +141,47 @@ function get_event_details($post_id = null) {
         'url'      => get_post_meta($post_id, '_event_url', true),
     );
 }
+
+/**
+ * Events for the homepage "Upcoming" block: published, dated today or
+ * later, with a one-day grace period after the date before dropping off
+ * (see notes/events.md). Soonest first, capped at 3 — the only layouts
+ * the block currently knows how to render.
+ *
+ * @return WP_Post[]
+ */
+function myriam2026_get_upcoming_events() {
+    $tz     = wp_timezone();
+    $cutoff = ( new DateTime( 'now', $tz ) )->modify( '-1 day' )->format( 'Y-m-d' );
+
+    $query = new WP_Query(
+        array(
+            'post_type'      => 'event',
+            'post_status'    => 'publish',
+            'posts_per_page' => 3,
+            'no_found_rows'  => true,
+            'orderby'        => 'meta_value',
+            'meta_key'       => '_event_date',
+            'order'          => 'ASC',
+            'meta_query'     => array(
+                array(
+                    'key'     => '_event_date',
+                    'value'   => $cutoff,
+                    'compare' => '>=',
+                    'type'    => 'DATE',
+                ),
+            ),
+        )
+    );
+
+    return $query->posts;
+}
+
+/**
+ * Register the "Upcoming Events" block (server-rendered, no build step —
+ * see notes/events.md).
+ */
+function myriam2026_register_upcoming_events_block() {
+    register_block_type( get_stylesheet_directory() . '/blocks/upcoming-events' );
+}
+add_action( 'init', 'myriam2026_register_upcoming_events_block' );

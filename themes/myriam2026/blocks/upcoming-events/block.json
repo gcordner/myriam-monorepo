@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "myriam2026/upcoming-events",
+    "title": "Upcoming Events",
+    "category": "widgets",
+    "description": "Automatically shows upcoming events (layout adapts to how many are coming up). No configuration needed — place it once.",
+    "textdomain": "myriam2026",
+    "editorScript": "file:./index.js",
+    "render": "file:./render.php",
+    "supports": {
+        "multiple": false,
+        "html": false
+    }
+}
