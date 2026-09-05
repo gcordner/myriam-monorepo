@@ -3,6 +3,25 @@
 
 // Page structure overrides
 #page {
+    // Singular pages/posts only (generatepress/content-page.php etc.) —
+    // clears the fixed header via the real measured height, not a
+    // hardcoded guess. Scoped to body.single/body.page specifically
+    // because .entry-header isn't unique to the page's own top-level
+    // title — e.g. archive-writing.php reuses the same class for each
+    // per-item header inside its grid, which must NOT get this margin.
+    // Deliberately NOT applied here to .page-header (archive-title, e.g.
+    // the Writing archive) or a Books-specific header yet — one step at a
+    // time, see notes/layout.md.
+    body.single &,
+    body.page & {
+        .entry-header {
+            @include mixins.clear-fixed-header();
+        }
+    }
+
+    // Archive-title wrapper (generate_archive_title(), e.g. Writing).
+    // Not yet unified with .entry-header above — still its own hardcoded
+    // value on purpose for now.
     .page-header {
         padding: 80px 0 0;
     }

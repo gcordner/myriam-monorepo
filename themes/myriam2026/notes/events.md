@@ -122,6 +122,24 @@ title → `<h3>` — per [[layout.md]].
 
 ---
 
+## Known issues — to fix
+
+- **Doesn't fit in the block editor canvas.** The single-event layout's
+  full-bleed CSS (`.upcoming-events` breaks out to `100vw` via negative
+  margins — see "Homepage 'Upcoming' block" above) works correctly on the
+  front end, but in wp-admin the editor canvas is narrower than the real
+  viewport (more so with the block-library panel open on the left and/or
+  the page/block settings panel open on the right), so the `100vw`
+  breakout overshoots the canvas and the block visibly exceeds its
+  container in the editor. Confirmed 2026-09-03: front end is correct,
+  editor is not. Low priority for now — this is partly WordPress's own
+  editor UI/UX making the canvas width unreliable to breakout against —
+  but needs a real fix (e.g. detecting the editor context and using a
+  different breakout strategy, or a CSS approach that isn't naive `100vw`)
+  before this is done.
+
+---
+
 ## Deliberately deferred — not designed yet
 
 - **`/events/` archive page.** Will get its own, different layout and its

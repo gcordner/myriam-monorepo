@@ -4,7 +4,8 @@
  *
  * Layout is chosen purely by how many upcoming events the query returns
  * (see myriam2026_get_upcoming_events() in inc/events.php) — 0 renders
- * nothing, 1 is the single "flyer" layout below. 2 and 3 aren't built yet.
+ * nothing, 1 is the single "flyer" layout below, 2 and 3 each have their
+ * own tracked issue and aren't built yet (see the TODOs below).
  *
  * @package Myriam2026
  */
@@ -18,10 +19,15 @@ if ( 0 === $count ) {
     return;
 }
 
-if ( $count > 1 ) {
-    // TODO: 2-event (stacked, mirrored) and 3-event (card grid) layouts —
-    // not built yet. Fall through to nothing rather than showing a
-    // half-finished layout.
+if ( 2 === $count ) {
+    // TODO: "Events homepage block — 2 events view" — stacked, mirrored
+    // flyer layout (see notes/events.md). Not built yet.
+    return;
+}
+
+if ( 3 === $count ) {
+    // TODO: "Events homepage block — 3 events view" — 3-up card grid
+    // (see notes/events.md). Not built yet.
     return;
 }
 

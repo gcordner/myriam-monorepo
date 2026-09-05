@@ -25,3 +25,12 @@
         @content;
     }
 }
+
+// Clears the fixed .site-header, whatever its real rendered height turns
+// out to be. --site-header-height is measured and kept in sync by JS
+// (see js/src/index.js); the fallback here is just today's known value so
+// the correct spacing is already in place on first paint, before that JS
+// has run — see notes/layout.md for why this replaced a hardcoded guess.
+@mixin clear-fixed-header($extra: 1rem) {
+    margin-top: calc(var(--site-header-height, 69px) + #{$extra});
+}

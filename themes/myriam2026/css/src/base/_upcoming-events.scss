@@ -10,6 +10,14 @@
 // _book.scss): base rules are the mobile layout, desktop overrides live
 // inside mixins.up(variables.$bp-md).
 .upcoming-events {
+    // Full-bleed regardless of editor alignment/sidebar state — this
+    // block has no user-facing settings by design, so it always breaks
+    // out to the viewport edge rather than depending on WP's alignfull
+    // toolbar (which our minimal edit() doesn't wire up) or GP's own
+    // .no-sidebar-scoped .alignfull rule.
+    width: 100vw;
+    margin-left: calc(-100vw / 2 + 100% / 2);
+    margin-right: calc(-100vw / 2 + 100% / 2);
     background-color: var(--wp--preset--color--teal-deep);
     background-image: radial-gradient(rgba(0, 0, 0, .18) 0.6px, transparent 0.6px);
     background-size: 10px 10px;
