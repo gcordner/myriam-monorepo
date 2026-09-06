@@ -5,13 +5,15 @@
 /* Single Book layout (mobile first) */
 .book-single {
     margin: var(--spacing, 2rem) auto;
-    padding-top: var(--wp--preset--spacing--80, 5rem); // 80px stays
+    // Header clearance now comes from .entry-header's shared
+    // clear-fixed-header() mixin (_layouts.scss) instead of a
+    // hardcoded value here — see notes/layout.md and notes/books.md.
     // 1rem L/R on mobile; 0 at ≥768px
     @include mixins.mobile-padding(var(--wp--preset--spacing--30, 1rem), 768px);
-}
 
-.book-header {
-    margin-bottom: 1rem;
+    .entry-header {
+        margin-bottom: 1rem;
+    }
 }
 
 .book-title {
@@ -33,7 +35,11 @@
     }
 }
 
-.book-grid {
+// .book-detail-* rather than .book-grid/.book-main/.book-aside — those
+// generic names collide with the homepage redesign's planned Backlist
+// section (a grid of book-cover cards, unrelated to this 2-column
+// content layout). See notes/books.md.
+.book-detail-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -44,16 +50,16 @@
         "main";
 }
 
-.book-main {
+.book-detail-main {
     grid-area: main;
 }
 
-.book-aside {
+.book-detail-aside {
     grid-area: aside;
 }
 
 @media (min-width: 992px) {
-    .book-grid {
+    .book-detail-grid {
         grid-template-columns: 7fr 5fr;
         /* desktop: main on the left, aside on the right */
         grid-template-areas: "main aside";
