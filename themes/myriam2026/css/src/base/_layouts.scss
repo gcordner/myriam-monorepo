@@ -20,10 +20,20 @@
     }
 
     // Archive-title wrapper (generate_archive_title(), e.g. Writing).
-    // Not yet unified with .entry-header above — still its own hardcoded
-    // value on purpose for now.
+    // No body.single/body.page guard needed here — unlike .entry-header,
+    // .page-header is only ever produced by generate_archive_title()
+    // itself, never reused per-item inside a loop.
+    //
+    // padding:0 is required, not cosmetic — GP's own "Separate
+    // Containers" style gives .page-header a default padding:40px on
+    // all four sides, which the old padding:80px 0 0 rule (a full
+    // shorthand) happened to zero out as a side effect. margin-top
+    // alone doesn't touch padding, so without this it stacks an extra
+    // 40px on top of the clearance and brings back unwanted left/right/
+    // bottom padding.
     .page-header {
-        padding: 80px 0 0;
+        padding: 0;
+        @include mixins.clear-fixed-header();
     }
 
     .inside-article {
