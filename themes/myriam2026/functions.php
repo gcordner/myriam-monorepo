@@ -239,14 +239,16 @@ add_action( 'wp', 'customize_page_titles' );
  * @return void
  */
 function remove_featured_image_from_pages() {
-    if (is_page()) {
-        // Remove GeneratePress featured image action.
-        remove_action('generate_before_content', 'generate_featured_page_header_inside_single', 10);
-        remove_action('generate_after_header', 'generate_featured_page_header', 10);
-        
-        // Remove any other GeneratePress image hooks.
-        add_filter('generate_show_featured_image', '__return_false');
-    }
+    // Applies everywhere, not just is_page() — no template should get an
+    // automatic image inserted by the shell itself. Any thumbnail display
+    // (book covers, event flyers, Writing archive thumbnails) is each
+    // template's own deliberate choice, made in its own content. See
+    // notes/books.md, "Phase 2".
+    remove_action('generate_before_content', 'generate_featured_page_header_inside_single', 10);
+    remove_action('generate_after_header', 'generate_featured_page_header', 10);
+
+    // Remove any other GeneratePress image hooks.
+    add_filter('generate_show_featured_image', '__return_false');
 }
 add_action('wp', 'remove_featured_image_from_pages');
 
