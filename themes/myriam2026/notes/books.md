@@ -8,8 +8,24 @@ templates (see [[layout.md]]) — Books was one of the templates flagged
 there as needing restructuring rather than just a CSS patch, since it's
 fully custom, owned code that already needed a cleanup pass.
 
-**Status:** Phase 1 (below) is done. Phase 2 (container unification) is
-the current work — see that section further down.
+**Status:** Phase 1 and Phase 2 (below) are both done and verified live,
+including a clean `phpcs --standard=WordPress` pass. Single book pages
+are complete.
+
+**Not done — Phase 3, added 2026-09-07:** the `book` post type's
+archive page (`http://myriamgurba.docksal.site/book/`, `has_archive:
+true`) is real and reachable (200, not 404), but has no theme template
+— no `archive-book.php` exists, so it silently falls back to
+`generatepress/archive.php`, GP's generic default. Confirmed live: it
+just shows a bare "BOOKS" title (correctly spaced, since it picks up
+the same `.page-header` clearance mixin as Writing) followed by an
+unstyled list of book titles — no covers, no grid, no design at all.
+It's also not linked from anywhere in the site's actual navigation —
+the "Books" nav dropdown lists individual titles only, no "All Books"
+link — so it's in the same "orphaned but technically live" category as
+the old `/contact/` page, except this one *is* a real, intended post
+type archive, just never built. Revisit once everything else is done;
+tracked in [[THEME-AUDIT-REPORT]] too.
 
 ---
 

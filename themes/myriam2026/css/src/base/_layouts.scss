@@ -47,6 +47,17 @@
     margin: 0;
 }
 
+// Space between archive content and the site footer, e.g. Writing —
+// applies to any archive-type view (body.archive is WP core's own
+// class, covers tag/category/post-type archives alike), so this
+// automatically covers future archive templates too (Books, Events)
+// without needing a per-template rule later. Ties the specificity of
+// the .separate-containers margin:0 rule above (2 classes each), so
+// this must stay after it in source order to win.
+body.archive .site-main {
+    margin-bottom: var(--wp--preset--spacing--40, 1.5rem);
+}
+
 // Writing archive grid
 .writing-grid {
     display: grid;
