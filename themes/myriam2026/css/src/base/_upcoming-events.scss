@@ -74,10 +74,30 @@
             grid-template-columns: minmax(220px, 300px) 1fr;
             gap: clamp(2rem, 5vw, 4.5rem);
         }
+
+        // Second (or later) stacked event mirrors the layout on desktop
+        // — text left, image right — so a run of them doesn't read as
+        // repeated copies of the same card. Mobile always keeps image
+        // on top via natural DOM order, no override needed there.
+        &.event-solo--reverse {
+            @include mixins.up(variables.$bp-md) {
+                // order alone only reorders items within the existing
+                // tracks — the image would land in the wide 1fr track
+                // and blow up in size. Swap the tracks themselves too.
+                grid-template-columns: 1fr minmax(220px, 300px);
+
+                .pinned-cover {
+                    order: 2;
+                }
+
+                .event-body {
+                    order: 1;
+                }
+            }
+        }
     }
 
     .pinned-cover {
-        position: relative;
         max-width: 280px;
         margin-inline: auto;
         transform: rotate(-2.2deg);
@@ -93,18 +113,6 @@
             object-fit: cover;
             border: 1px solid rgba(0, 0, 0, .08);
             box-shadow: 0 22px 40px -14px rgba(0, 0, 0, .45), 0 2px 0 rgba(0, 0, 0, .06);
-        }
-
-        .pin {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            width: 16px;
-            height: 16px;
-            transform: translateX(-50%);
-            border-radius: 50%;
-            background: radial-gradient(circle at 32% 30%, #e8836b, var(--wp--preset--color--flame) 60%, #a1341f);
-            box-shadow: 0 3px 5px rgba(0, 0, 0, .35);
         }
     }
 
