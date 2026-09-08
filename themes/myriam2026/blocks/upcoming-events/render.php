@@ -54,7 +54,11 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'upcoming-
 			?>
 			<div class="<?php echo esc_attr( $solo_class ); ?>">
 				<div class="pinned-cover">
-					<?php echo get_the_post_thumbnail( $post_id, 'large' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php if ( has_post_thumbnail( $post_id ) ) : ?>
+						<button type="button" class="lightbox-trigger" data-lightbox-src="<?php echo esc_url( wp_get_attachment_image_url( get_post_thumbnail_id( $post_id ), 'full' ) ); ?>" aria-label="<?php esc_attr_e( 'View larger image', 'myriam2026' ); ?>">
+							<?php echo get_the_post_thumbnail( $post_id, 'large' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						</button>
+					<?php endif; ?>
 				</div>
 				<div class="event-body">
 					<?php if ( $when_html ) : ?>
