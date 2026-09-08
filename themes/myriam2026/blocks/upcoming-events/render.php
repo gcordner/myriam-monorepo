@@ -50,7 +50,7 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'upcoming-
 			}
 			$when_html = implode( '<span class="sep">&middot;</span>', $when_parts );
 
-			$solo_class = 1 === $index ? 'event-solo event-solo--reverse' : 'event-solo';
+			$solo_class = 1 === $index ? 'event-solo event-solo--reverse mt-16' : 'event-solo';
 			?>
 			<div class="<?php echo esc_attr( $solo_class ); ?>">
 				<div class="pinned-cover">

@@ -52,9 +52,9 @@
         display: block;
         margin: 0 0 .3rem;
         font-family: var(--wp--preset--font-family--archivo);
-        font-size: .72rem;
-        font-weight: 700;
-        letter-spacing: .1em;
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: .06em;
         text-transform: uppercase;
         color: #5fb3ba;
 
@@ -118,7 +118,8 @@
 
     .event-body {
         h3 {
-            margin: .8rem 0 .2rem;
+            margin: 1.25rem 0 1.25rem;
+            text-align: left;
             font-family: var(--wp--preset--font-family--fraunces);
             font-weight: 600;
             font-size: clamp(1.6rem, 3.4vw, 2.3rem);
@@ -128,7 +129,7 @@
         }
 
         .event-subtitle {
-            margin: 0 0 .8rem;
+            margin-bottom: 1.25rem;
             font-family: var(--wp--preset--font-family--fraunces);
             font-style: italic;
             font-size: clamp(1rem, 1.8vw, 1.2rem);
@@ -136,7 +137,6 @@
         }
 
         .event-desc {
-            max-width: 36rem;
             margin: 0 0 1.3rem;
             font-family: var(--wp--preset--font-family--fraunces);
             font-size: .98rem;

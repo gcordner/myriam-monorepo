@@ -140,6 +140,35 @@ title → `<h3>` — per [[layout.md]].
 
 ---
 
+## To revisit next session — 2026-09-07
+
+Noted during the 2-event layout build, not yet implemented. All in
+`css/src/base/_upcoming-events.scss` unless stated otherwise.
+
+1. **Section padding is too tall.** `.upcoming-events`'s vertical padding
+   — `clamp(3rem, 7vw, 6rem)` — needs its ceiling brought down from
+   `6rem` to around `4rem` (exact value TBD, "or something along these
+   lines").
+2. **Spacing between the two stacked events, take 3.** The last two
+   attempts (a `.event-solo + .event-solo` margin-top rule, first
+   `clamp(2.5rem, 5vw, 4rem)` then `clamp(1rem, 2vw, 1.5rem)`) didn't
+   look right and were reverted — see the "2 events view" commit history.
+   New approach: don't bake the spacing into `.event-solo--reverse`
+   itself (that modifier will likely get reused elsewhere for layouts
+   that don't want this specific gap). Instead add a plain utility class
+   alongside it in the markup. Good news — it already exists:
+   `.mt-8` (2rem) or `.mt-10` (2.5rem) in `_utilities.scss` land right in
+   the requested ~2–2.5rem range, no new CSS needed. `render.php`'s
+   second loop iteration would become e.g.
+   `class="event-solo event-solo--reverse mt-8"`.
+3. ~~`.event-desc`'s `max-width: 36rem` isn't working, or isn't needed~~
+   — **done, 2026-09-08.** Diagnosed live: the max-width made the
+   description float left and leave unbalanced empty space on the right
+   under a short title/subtitle. Removed; description now stretches to
+   the container width, matching the rest of the content.
+
+---
+
 ## Deliberately deferred — not designed yet
 
 - **`/events/` archive page.** Will get its own, different layout and its
