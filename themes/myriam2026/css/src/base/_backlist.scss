@@ -1,0 +1,71 @@
+@use 'variables';
+@use 'mixins';
+
+// "Backlist" block (redesign-2026/homepage-direction-mockup.html
+// .backlist/.book-grid/.book-card) — a curated grid of up to 4 earlier
+// books. Background is the shared .ink-ground class (_grounds.scss),
+// applied in render.php.
+//
+// Mobile-first, matching this codebase's convention (see _upcoming-events.scss):
+// base rules are the mobile layout, desktop overrides live inside
+// mixins.up(variables.$bp-md).
+.backlist {
+    padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.backlist-inner {
+    max-width: 72rem;
+    margin-inline: auto;
+}
+
+.book-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1.25rem, 2.6vw, 2.25rem);
+
+    @include mixins.up(variables.$bp-xs) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include mixins.up(variables.$bp-md) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.book-card {
+    a {
+        text-decoration: none;
+
+        &:hover h3 {
+            color: var(--wp--preset--color--flame);
+        }
+    }
+
+    img {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+        box-shadow: 0 14px 26px -12px rgba(0, 0, 0, .6);
+    }
+
+    h3 {
+        font-family: var(--wp--preset--font-family--archivo);
+        font-size: .82rem;
+        letter-spacing: .06em;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-align: left;
+        color: var(--wp--preset--color--paper);
+        margin: .5rem 0 .5rem;
+    }
+
+    // Non-palette one-off tone (not in theme.json) — same call already
+    // made for .blurbs/.blurbs cite in _featured-book.scss.
+    p {
+        font-family: var(--wp--preset--font-family--archivo);
+        font-size: .78rem;
+        line-height: 1.5;
+        color: #a99f8f;
+        margin: 0;
+    }
+}

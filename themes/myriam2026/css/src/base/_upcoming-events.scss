@@ -21,25 +21,7 @@
         margin-inline: auto;
     }
 
-    .section-label {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin: 0 0 2.25rem;
-        font-family: var(--wp--preset--font-family--archivo);
-        font-size: .85rem;
-        font-weight: 700;
-        letter-spacing: .18em;
-        text-transform: uppercase;
-        color: #e7dcc7;
-
-        &::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background: #3a322c;
-        }
-    }
+    // .section-label now lives in the shared _section-label.scss partial.
 
     .event-when {
         display: block;

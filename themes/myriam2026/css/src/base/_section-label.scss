@@ -1,0 +1,25 @@
+// Shared section-heading treatment for homepage full-bleed dark-ground
+// blocks (redesign-2026/homepage-direction-mockup.html .section-label,
+// on-ink variant) — used by Upcoming Events and Backlist. The mockup also
+// has a light-ground (paper) variant, e.g. for Bio — not built yet since
+// nothing currently needs it; add when that block is actually built
+// rather than ahead of need.
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 0 2.25rem;
+    font-family: var(--wp--preset--font-family--archivo);
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #e7dcc7;
+
+    &::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #3a322c;
+    }
+}
