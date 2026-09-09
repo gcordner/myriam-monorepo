@@ -270,6 +270,7 @@ colors are grays — every neutral/muted tone in the UI is ad hoc.
 
 #### F4. Two parallel "source of truth" palettes, manually synced, no enforcement
 **Severity:** Medium (process risk, not a current bug)
+**Status: RESOLVED, confirmed 2026-09-09** — see update below.
 
 `theme.json` and `generate_settings.global_colors` agree on 7 of 8 colors
 today only because someone typed the same hex values into both places by
@@ -420,6 +421,42 @@ this that GP regenerates by storing the live `var(--wp--preset--color--*)`
 reference itself (not a re-baked hex) — so this is a one-time fix per edit,
 not something that needs repeating on every subsequent theme.json change to
 that same color.
+
+---
+
+## F4 confirmed resolved — the consolidation plan is fully executed (2026-09-09)
+
+Checked the live DB directly (`fin wp option get generate_settings --path=docroot
+--format=json`), not just assumed from the consolidation plan above. All 8
+`global_colors` slots now alias to `var(--wp--preset--color--*)` — not just
+the one `contrast`/ink example documented in the "Operational gotcha"
+section, the full set:
+
+```json
+[
+  {"slug": "contrast",   "color": "var(--wp--preset--color--ink)"},
+  {"slug": "contrast-2", "color": "var(--wp--preset--color--ink)"},
+  {"slug": "contrast-3", "color": "var(--wp--preset--color--poppy-yellow)"},
+  {"slug": "base",       "color": "var(--wp--preset--color--paper)"},
+  {"slug": "base-2",     "color": "var(--wp--preset--color--paper)"},
+  {"slug": "base-3",     "color": "var(--wp--preset--color--paper)"},
+  {"slug": "accent",     "color": "var(--wp--preset--color--flame)"},
+  {"slug": "dark-brick", "color": "var(--wp--preset--color--dark-brick)"}
+]
+```
+
+`theme.json` is now genuinely the single authored color source — GP's own
+chrome (nav text/hover/current colors, etc.) resolves through these aliases
+back to `theme.json`'s real custom properties, not independent hex. This
+also folds `base-3` (previously a stray pure-white with no `theme.json`
+counterpart) into `paper`, closing that specific drift case too.
+
+**Not covered by this fix, still real:** Stackable's dormant "Alternate
+Scheme" (F5) has no alias path — it's a separate plugin option with no
+mechanism to derive from `theme.json` at all. Policy (don't apply it to a
+Stackable block), not code, remains the only mitigation. F1
+(`.dark-teal-link` → `--theme-palette-color-3`) and F2 (`.white-link`
+hardcoding) are also unrelated SCSS-level bugs, still unfixed.
 
 ---
 

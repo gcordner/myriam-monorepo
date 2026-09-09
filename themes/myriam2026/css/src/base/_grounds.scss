@@ -1,0 +1,36 @@
+// Full-bleed section "ground" treatments (redesign-2026/homepage-direction-
+// mockup.html .ink-ground/.paper-ground/.teal-deep-ground). Shared because
+// the same few grounds repeat across multiple blocks — Featured Book:
+// paper, Backlist: ink, Upcoming Events: teal-deep, Bio (planned): paper
+// again — one real definition instead of each block silently duplicating
+// its own copy of the same background + breakout rule.
+//
+// The 100vw full-bleed breakout is a WordPress/GeneratePress-specific
+// necessity (escaping the theme's normal contained content column) that
+// the mockup itself didn't need (its sections were already full-width on
+// a standalone static page) — centralized here rather than copied per
+// block, same reasoning as the rest of this file.
+@mixin full-bleed {
+    width: 100vw;
+    margin-left: calc(-100vw / 2 + 100% / 2);
+    margin-right: calc(-100vw / 2 + 100% / 2);
+}
+
+.ink-ground {
+    @include full-bleed;
+    background-color: var(--wp--preset--color--ink);
+    background-image: radial-gradient(#3a322c 0.6px, transparent 0.6px);
+    background-size: 10px 10px;
+}
+
+.paper-ground {
+    @include full-bleed;
+    background-color: var(--wp--preset--color--paper);
+}
+
+.teal-deep-ground {
+    @include full-bleed;
+    background-color: var(--wp--preset--color--teal-deep);
+    background-image: radial-gradient(rgba(0, 0, 0, .18) 0.6px, transparent 0.6px);
+    background-size: 10px 10px;
+}

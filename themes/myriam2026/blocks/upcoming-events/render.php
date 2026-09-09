@@ -26,7 +26,7 @@ if ( 3 === $count ) {
     return;
 }
 
-$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'upcoming-events' ) );
+$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'upcoming-events teal-deep-ground' ) );
 $section_label      = ! empty( $attributes['sectionLabel'] ) ? $attributes['sectionLabel'] : 'Upcoming';
 ?>
 <section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>

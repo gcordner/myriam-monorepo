@@ -1,7 +1,15 @@
+@use 'variables';
+@use 'mixins';
+
 // "Featured book" block (redesign-2026/homepage-direction-mockup.html
 // .feature/.pinned-cover/.blurbs, the "New book" spot). The mockup's
 // decorative .pin dot on the cover is deliberately dropped, same call
-// already made for the events section's image treatment.
+// already made for the events section's image treatment. Background is
+// the shared .paper-ground class (_grounds.scss), applied in render.php.
+//
+// Mobile-first, matching this codebase's convention (see _upcoming-events.scss):
+// base rules are the mobile layout, desktop overrides live inside
+// mixins.up(variables.$bp-md).
 .featured-book {
     padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 4vw, 3rem);
 }
@@ -10,21 +18,23 @@
     max-width: 72rem;
     margin-inline: auto;
     display: grid;
-    grid-template-columns: minmax(220px, 300px) 1fr;
+    grid-template-columns: 1fr;
     gap: clamp(2rem, 5vw, 4.5rem);
     align-items: center;
 
-    @media (max-width: 782px) {
-        grid-template-columns: 1fr;
+    @include mixins.up(variables.$bp-md) {
+        grid-template-columns: minmax(220px, 300px) 1fr;
     }
 }
 
 .featured-book-cover-wrap {
+    max-width: 280px;
+    margin-inline: auto;
     transform: rotate(-2.2deg);
 
-    @media (max-width: 782px) {
-        max-width: 280px;
-        margin-inline: auto;
+    @include mixins.up(variables.$bp-md) {
+        max-width: none;
+        margin-inline: 0;
     }
 
     img {
