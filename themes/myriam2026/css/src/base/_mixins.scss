@@ -12,8 +12,7 @@
     }
 }
 
-// Back-compat alias — matches your original name & signature
-// Keeps existing @include mixins.mobile-padding(); working
+// Back-compat alias — keeps existing @include mixins.mobile-padding(); working
 @mixin mobile-padding($padding: var(--wp--preset--spacing--30, 1rem),
     $breakpoint: 768px) {
     @include mobile-inline-padding($padding, $breakpoint, 0);
