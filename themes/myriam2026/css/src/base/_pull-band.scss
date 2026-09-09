@@ -1,0 +1,26 @@
+// Full-bleed flame pull-quote band (redesign-2026/homepage-direction-mockup.html
+// .pull-band). Colors/background/padding come from the Group block's own
+// native supports (backgroundColor="flame", textColor="paper") — this
+// partial only adds what the block editor UI can't reach: the max-width
+// constraint on the quote and the uppercase/tracked citation line.
+.pull-band-quote {
+    font-family: var(--wp--preset--font-family--fraunces);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(1.35rem, 2.6vw, 1.6rem);
+    max-width: 52rem;
+    margin-inline: auto;
+    text-wrap: balance;
+}
+
+.pull-band-cite {
+    display: block;
+    margin-top: .5rem;
+    font-family: var(--wp--preset--font-family--archivo);
+    font-style: normal;
+    font-size: .78rem;
+    letter-spacing: .1em;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: .75;
+}

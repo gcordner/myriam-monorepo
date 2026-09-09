@@ -1,0 +1,35 @@
+// Homepage hero (the front-cover block) — matches
+// redesign-2026/homepage-direction-mockup.html's .hero treatment.
+// min-height uses a real CSS min() (a plain vh value alone would make
+// the hero excessively tall on large monitors), so it's set here
+// rather than through Cover's own minHeight attribute, which only
+// supports a single number+unit, not a compound expression.
+.front-cover {
+    min-height: min(92vh, 920px);
+
+    img.wp-block-cover__image-background {
+        filter: grayscale(1) contrast(1.05);
+    }
+}
+
+.hero-content {
+    max-width: 56rem;
+    padding: clamp(2rem, 5vw, 4.5rem);
+}
+
+.misprint {
+    font-size: clamp(2.4rem, 6.6vw, 5.2rem);
+    line-height: .98;
+    letter-spacing: .01em;
+    text-wrap: balance;
+    // No shadow/duplicate effect — flame-on-photo at full hero scale
+    // read as visual noise (a near-complementary red/teal color-vibration
+    // problem, not just a taste call). Plain flame text instead.
+}
+
+.hero-attribution {
+    margin-top: 1.1rem;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #e7dcc7;
+}

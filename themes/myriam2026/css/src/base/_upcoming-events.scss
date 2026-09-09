@@ -152,29 +152,4 @@
             }
         }
     }
-
-    .stamp-btn {
-        display: inline-block;
-        margin-top: 1.4rem;
-        padding: .62em 1.5em;
-        font-family: var(--wp--preset--font-family--archivo);
-        font-size: .78rem;
-        font-weight: 700;
-        letter-spacing: .12em;
-        text-transform: uppercase;
-        text-decoration: none;
-        border: 1.5px solid var(--wp--preset--color--flame);
-        transition: background .15s, color .15s;
-
-        &.on-teal-deep {
-            background: var(--wp--preset--color--flame);
-            color: var(--wp--preset--color--paper);
-            box-shadow: 0 0 0 3px var(--wp--preset--color--teal-deep), 0 0 0 4.5px var(--wp--preset--color--flame);
-
-            &:hover,
-            &:focus-visible {
-                color: var(--wp--preset--color--ink);
-            }
-        }
-    }
 }

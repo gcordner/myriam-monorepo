@@ -327,3 +327,4 @@ add_filter( 'template_include', function ( $template ) {
 
 require_once get_stylesheet_directory() . '/inc/student-portal.php';
 require_once get_stylesheet_directory() . '/inc/events.php';
+require_once get_stylesheet_directory() . '/inc/featured-book.php';

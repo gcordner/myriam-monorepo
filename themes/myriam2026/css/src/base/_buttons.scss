@@ -1,0 +1,39 @@
+// Shared "stamp" button (redesign-2026/homepage-direction-mockup.html
+// .stamp-btn) — an outlined stamp look on paper grounds, filled by default
+// on darker grounds via the .on-teal-deep/.on-ink modifiers. Originally
+// built scoped inside .upcoming-events for the teal-deep-ground events
+// section; extracted here so featured-book (paper-ground) can reuse the
+// same component instead of a second divergent definition.
+.stamp-btn {
+    display: inline-block;
+    margin-top: 1.4rem;
+    padding: .62em 1.5em;
+    font-family: var(--wp--preset--font-family--archivo);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--wp--preset--color--flame);
+    background: transparent;
+    border: 1.5px solid var(--wp--preset--color--flame);
+    box-shadow: 0 0 0 3px var(--wp--preset--color--paper), 0 0 0 4.5px var(--wp--preset--color--flame);
+    transition: background .15s, color .15s;
+
+    &:hover,
+    &:focus-visible {
+        background: var(--wp--preset--color--flame);
+        color: var(--wp--preset--color--paper);
+    }
+
+    &.on-teal-deep {
+        background: var(--wp--preset--color--flame);
+        color: var(--wp--preset--color--paper);
+        box-shadow: 0 0 0 3px var(--wp--preset--color--teal-deep), 0 0 0 4.5px var(--wp--preset--color--flame);
+
+        &:hover,
+        &:focus-visible {
+            color: var(--wp--preset--color--ink);
+        }
+    }
+}
