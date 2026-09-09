@@ -14,12 +14,12 @@
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: #e7dcc7;
+    color: var(--wp--preset--color--paper-soft);
 
     &::after {
         content: "";
         flex: 1;
         height: 1px;
-        background: #3a322c;
+        background: var(--wp--preset--color--ink-line);
     }
 }

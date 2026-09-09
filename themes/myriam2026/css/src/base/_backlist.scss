@@ -59,13 +59,11 @@
         margin: .5rem 0 .5rem;
     }
 
-    // Non-palette one-off tone (not in theme.json) — same call already
-    // made for .blurbs/.blurbs cite in _featured-book.scss.
     p {
         font-family: var(--wp--preset--font-family--archivo);
         font-size: .78rem;
         line-height: 1.5;
-        color: #a99f8f;
+        color: var(--wp--preset--color--taupe-soft);
         margin: 0;
     }
 }

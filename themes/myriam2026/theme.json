@@ -55,6 +55,31 @@
           "slug": "taupe",
           "color": "#8a8074",
           "name": "Taupe"
+        },
+        {
+          "slug": "taupe-soft",
+          "color": "#a99f8f",
+          "name": "Taupe Soft"
+        },
+        {
+          "slug": "ink-line",
+          "color": "#3a322c",
+          "name": "Ink Line"
+        },
+        {
+          "slug": "ink-muted",
+          "color": "#6f6455",
+          "name": "Ink Muted"
+        },
+        {
+          "slug": "paper-soft",
+          "color": "#e7dcc7",
+          "name": "Paper Soft"
+        },
+        {
+          "slug": "paper-line",
+          "color": "#cfc0a4",
+          "name": "Paper Line"
         }
       ],
       "custom": true,
