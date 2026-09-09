@@ -18,7 +18,7 @@ if ( ! $books ) {
 ?>
 <section class="backlist ink-ground">
 	<div class="backlist-inner">
-		<h2 class="section-label"><?php esc_html_e( 'Backlist', 'myriam2026' ); ?></h2>
+		<h2 class="section-label on-ink"><?php esc_html_e( 'Backlist', 'myriam2026' ); ?></h2>
 
 		<div class="book-grid">
 			<?php foreach ( $books as $book_id ) : ?>

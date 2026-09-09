@@ -31,7 +31,7 @@ $section_label      = ! empty( $attributes['sectionLabel'] ) ? $attributes['sect
 ?>
 <section <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 	<div class="upcoming-events-inner">
-		<h2 class="section-label"><?php echo esc_html( $section_label ); ?></h2>
+		<h2 class="section-label on-ink"><?php echo esc_html( $section_label ); ?></h2>
 
 		<?php foreach ( $upcoming_events as $index => $post ) : ?>
 			<?php

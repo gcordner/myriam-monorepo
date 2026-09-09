@@ -62,6 +62,11 @@
           "name": "Taupe Soft"
         },
         {
+          "slug": "ink-soft",
+          "color": "#211b17",
+          "name": "Ink Soft"
+        },
+        {
           "slug": "ink-line",
           "color": "#3a322c",
           "name": "Ink Line"

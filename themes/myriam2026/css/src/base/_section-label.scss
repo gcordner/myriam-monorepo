@@ -1,9 +1,7 @@
-// Shared section-heading treatment for homepage full-bleed dark-ground
-// blocks (redesign-2026/homepage-direction-mockup.html .section-label,
-// on-ink variant) — used by Upcoming Events and Backlist. The mockup also
-// has a light-ground (paper) variant, e.g. for Bio — not built yet since
-// nothing currently needs it; add when that block is actually built
-// rather than ahead of need.
+// Shared section-heading treatment (redesign-2026/homepage-direction-
+// mockup.html .section-label). Base is the light-ground (paper) variant,
+// matching the mockup's own default — e.g. Bio. .on-ink is the modifier
+// for dark-ground sections — Upcoming Events, Backlist.
 .section-label {
     display: flex;
     align-items: center;
@@ -14,12 +12,20 @@
     font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: var(--wp--preset--color--paper-soft);
+    color: var(--wp--preset--color--ink-muted);
 
     &::after {
         content: "";
         flex: 1;
         height: 1px;
-        background: var(--wp--preset--color--ink-line);
+        background: var(--wp--preset--color--paper-line);
+    }
+
+    &.on-ink {
+        color: var(--wp--preset--color--paper-soft);
+
+        &::after {
+            background: var(--wp--preset--color--ink-line);
+        }
     }
 }

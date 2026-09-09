@@ -10,6 +10,39 @@ lives before the palette gets swapped for the redesign (see the theme's
 
 ---
 
+## Governing rule (2026-09-09) — read this before adding any color anywhere
+
+**`theme.json` must be the single authority for every design value on this
+site. No exceptions, ever.**
+
+Whenever a real color (or, by the same logic, any other design value) is
+found somewhere — GeneratePress settings, a plugin, raw hex in SCSS — one
+of two things is true:
+
+1. It's already in `theme.json`, and the other location must be made to
+   reference it (`var(--wp--preset--color--x)`, or a GP `global_colors`
+   alias like `var(--wp--preset--color--x)` in its own `color` field) —
+   never hold an independent copy of the value.
+2. It's genuinely new. Then it gets added to `theme.json` first, and only
+   then referenced from wherever it's needed.
+
+This applies regardless of how often the color is used, how close it is to
+an existing color, or how minor the component is. "It's just used once" or
+"it's basically the same as X" are not reasons to hardcode a hex value —
+they're reasons to either reuse the existing token or add a new one
+properly. The one real exception is genuine near-duplicates from hand-typed
+drift (e.g. `#3a3229` vs. `ink-line`'s `#3a322c`, three units apart) — those
+get merged into the existing token, not added as a second one.
+
+Why this is absolute and not a style preference: this entire redesign
+exists to fix exactly the failure mode of colors decided ad hoc, per
+instance, with no shared system (see `CASE-STUDY.md`'s account of the old
+site's per-section color drift). A hardcoded hex in a new SCSS partial is
+the same disease at smaller scale — it just doesn't look like a problem
+yet because there's only one instance of it.
+
+---
+
 ## Executive summary
 
 Colors for this site live in **four independent places**, none of which are

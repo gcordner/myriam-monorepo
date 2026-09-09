@@ -1,0 +1,20 @@
+// "Bio" block (redesign-2026/homepage-direction-mockup.html .bio) —
+// content lives on the Site Content options page (bio_text), reusable
+// across many pages; this block is purely a display layer. Background is
+// the shared .paper-ground class (_grounds.scss).
+.bio {
+    padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+}
+
+.bio-inner {
+    max-width: 44rem;
+    margin-inline: auto;
+
+    p {
+        font-family: var(--wp--preset--font-family--fraunces);
+        font-size: 1.08rem;
+        line-height: 1.7;
+        color: var(--wp--preset--color--ink-soft);
+        max-width: 64ch;
+    }
+}
