@@ -8,6 +8,12 @@
     "textdomain": "myriam2026",
     "editorScript": "file:./index.js",
     "render": "file:./render.php",
+    "attributes": {
+        "sectionLabel": {
+            "type": "string",
+            "default": "Upcoming"
+        }
+    },
     "supports": {
         "multiple": false,
         "html": false
